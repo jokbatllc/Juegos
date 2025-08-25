@@ -13,6 +13,11 @@ from .services import generator, exporter
 from puzzles.models import JuegoGenerado
 
 
+def index(request):
+    # Evita depender de una plantilla "index": llevamos al usuario al formulario
+    return redirect("coloring:create")
+
+
 @require_group("generador")
 def create(request):
     if request.method == "POST":

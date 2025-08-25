@@ -3,14 +3,20 @@ from __future__ import annotations
 import random
 
 from django.conf import settings
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import FileResponse, Http404
 from django.contrib.auth.decorators import login_required
+from django.http import FileResponse, Http404
+from django.shortcuts import get_object_or_404, redirect, render
+
 from core.auth import require_group
+from puzzles.models import JuegoGenerado
 
 from .forms import MandalaForm
 from .services import generator, exporter
-from puzzles.models import JuegoGenerado
+
+
+def index(request):
+    # Página de aterrizaje: redirige al formulario de creación
+    return redirect("mandala:create")
 
 
 @require_group("generador")
@@ -21,6 +27,7 @@ def create(request):
             params = form.to_params()
             if not params.get("semilla"):
                 params["semilla"] = random.randint(0, 1_000_000)
+
             jg = JuegoGenerado.objects.create(
                 tipo="mandala",
                 parametros=params,
@@ -30,9 +37,11 @@ def create(request):
             drawings = generator.generate(params, jg.id)
             jg.resultado = [d["path"] for d in drawings]
             jg.save()
+
             return redirect("mandala:detail", pk=jg.pk)
     else:
         form = MandalaForm()
+
     return render(request, "mandala/create.html", {"form": form})
 
 

@@ -9,11 +9,11 @@ urlpatterns = [
     path('lexicon/', include('lexicon.urls', namespace='lexicon')),
     path('puzzles/', include('puzzles.urls', namespace='puzzles')),
     path('crossword/', include('crossword.urls', namespace='crossword')),
-    path('sudoku/', include('sudoku.urls', namespace='sudoku')),
     path('wordsearch/', include('wordsearch.urls', namespace='wordsearch')),
-    path('mandala/', include('mandala.urls', namespace='mandala')),
-    path('calligraphy/', include('calligraphy.urls', namespace='calligraphy')),
     path('coloring/', include('coloring.urls', namespace='coloring')),
+    path('calligraphy/', include('calligraphy.urls', namespace='calligraphy')),
+    path('sudoku/', include('sudoku.urls', namespace='sudoku')),
+    path('mandala/', include('mandala.urls', namespace='mandala')),
 ]
 
 if settings.DEBUG:

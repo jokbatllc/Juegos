@@ -1,13 +1,19 @@
 from __future__ import annotations
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseBadRequest
+from django.shortcuts import get_object_or_404, redirect, render
+
 from core.auth import require_group
+from puzzles.models import JuegoGenerado
 
 from .forms import SudokuForm
 from .services import generator, exporter
-from puzzles.models import JuegoGenerado
+
+
+def index(request):
+    # Página de aterrizaje: redirige al formulario de creación
+    return redirect("sudoku:create")
 
 
 @require_group("generador")

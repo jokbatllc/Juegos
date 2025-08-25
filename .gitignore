@@ -1,42 +1,66 @@
-# Python / venv
+# -----------------------
+# Python / bytecode / logs
+# -----------------------
 __pycache__/
 *.py[cod]
+*$py.class
 *.log
+
+# -----------------------
+# Entornos virtuales
+# -----------------------
 .venv/
 venv/
 .env
+.env/
 .env.*
 
-# Django artifacts
+# -----------------------
+# Artefactos Django
+# -----------------------
 db.sqlite3
 media/
 !media/.gitkeep
 staticfiles/
-.DS_Store
+local_settings.py
 
-# Exports and datasets
+# -----------------------
+# Exportaciones y datasets (NO versionar grandes)
+# -----------------------
 exports/
 lexicon/datasets/*
 !lexicon/datasets/*_sample.csv
 
-# Other generated data
+# Otros datos generados
 lexicon/fixtures/*.json
 lexicon/fixtures/*.jsonl
 dumps/*.json
 dumps/*.jsonl
 
-# IDEs and editors
+# -----------------------
+# IDEs / editores
+# -----------------------
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# Python packaging
+# -----------------------
+# Archivos del SO
+# -----------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------
+# Packaging
+# -----------------------
 *.egg-info/
 build/
 dist/
 
-# Compressed / binary files
+# -----------------------
+# Comprimidos / binarios pesados
+# -----------------------
 *.zip
 *.tar
 *.tar.gz
