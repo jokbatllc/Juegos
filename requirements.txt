@@ -1,0 +1,8 @@
+Django==5.*
+Pillow
+WeasyPrint
+pytest
+pytest-django
+ruff
+black
+python-dotenv
