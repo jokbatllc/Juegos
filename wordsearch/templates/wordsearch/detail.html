@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Sopa de Letras · Juegos{% endblock %}
+{% block breadcrumbs %}
+  {% include "partials/_breadcrumbs.html" %}
+{% endblock %}
+{% block breadcrumb_items %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'wordsearch:create' %}">Wordsearch</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Detalle</li>
+{% endblock %}
+{% block content %}
+<p><strong>Tamaño:</strong> {{ juego.resultado.ancho }} x {{ juego.resultado.alto }} | <strong>Seed:</strong> {{ juego.resultado.seed }}</p>
+<pre class="font-monospace">
+{% for row in juego.resultado.grid %}{{ row }}
+{% endfor %}
+</pre>
+<h5>Palabras a encontrar</h5>
+<ul>
+  {% for p in juego.resultado.palabras %}
+  <li>{{ p }}</li>
+  {% endfor %}
+</ul>
+<div class="mb-3">
+  <a href="{% url 'wordsearch:export' juego.id 'pdf' %}" class="btn btn-outline-primary me-2">Descargar PDF</a>
+  <a href="{% url 'wordsearch:export' juego.id 'png' %}" class="btn btn-outline-primary">Descargar PNG</a>
+</div>
+<a href="{% url 'wordsearch:create' %}" class="btn btn-secondary">Volver</a>
+<form method="post" action="{% url 'wordsearch:create' %}" class="d-inline">
+  {% csrf_token %}
+  {% for key, val in juego.parametros.items %}
+    {% if key == 'categorias' %}
+      {% for c in val %}
+      <input type="hidden" name="categorias" value="{{ c }}">
+      {% endfor %}
+    {% else %}
+      <input type="hidden" name="{{ key }}" value="{{ val }}">
+    {% endif %}
+  {% endfor %}
+  <button class="btn btn-primary">Duplicar</button>
+</form>
+{% endblock %}
