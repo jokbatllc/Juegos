@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Crucigrama · Juegos{% endblock %}
+{% block breadcrumbs %}
+  {% include "partials/_breadcrumbs.html" %}
+{% endblock %}
+{% block breadcrumb_items %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'crossword:create' %}">Crossword</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Detalle</li>
+{% endblock %}
+{% block content %}
+<p><strong>Tamaño:</strong> {{ juego.resultado.ancho }} x {{ juego.resultado.alto }} | <strong>Seed:</strong> {{ juego.resultado.seed }}</p>
+<table class="table table-bordered text-center">
+  {% for row in juego.resultado.grid %}
+  <tr>
+    {% for ch in row %}
+    {% if ch == '#' %}
+      <td class="bg-dark"></td>
+    {% else %}
+      <td>{{ ch }}</td>
+    {% endif %}
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+<h5>Definiciones</h5>
+<ol>
+  {% for d in juego.resultado.definiciones %}
+  <li>{{ d.pista }} ({{ d.orientacion|yesno:"horizontal,vertical" }})</li>
+  {% endfor %}
+</ol>
+<div class="mt-3 d-flex gap-2">
+  <a class="btn btn-primary" href="{% url 'crossword:export' juego.id 'pdf' %}">Descargar PDF</a>
+  <a class="btn btn-secondary" href="{% url 'crossword:export' juego.id 'png' %}">Descargar PNG</a>
+</div>
+<a href="{% url 'crossword:create' %}" class="btn btn-secondary">Volver</a>
+<form method="post" action="{% url 'crossword:create' %}" class="d-inline">
+  {% csrf_token %}
+  {% for key, val in juego.parametros.items %}
+    {% if key == 'categorias' %}
+      {% for c in val %}
+      <input type="hidden" name="categorias" value="{{ c }}">
+      {% endfor %}
+    {% else %}
+      <input type="hidden" name="{{ key }}" value="{{ val }}">
+    {% endif %}
+  {% endfor %}
+  <button class="btn btn-primary">Duplicar</button>
+</form>
+{% endblock %}

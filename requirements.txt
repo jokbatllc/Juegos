@@ -1,0 +1,11 @@
+Django==5.*
+Pillow
+WeasyPrint
+pytest
+pytest-django
+ruff
+black
+isort
+python-dotenv
+psycopg2-binary
+gunicorn

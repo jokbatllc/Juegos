@@ -1,0 +1,29 @@
+<!doctype html>
+<html><head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    table { border-collapse: collapse; }
+    td { width: 24px; height: 24px; text-align: center; border: 1px solid #222; }
+    .fixed { background:#eee; }
+  </style>
+</head><body>
+  <h2>Sudoku #{{ jg.id }}</h2>
+  <table>
+    {% for row in grid %}
+      <tr>
+        {% for val in row %}
+          {% if val %}<td class="fixed">{{ val }}</td>{% else %}<td>&nbsp;</td>{% endif %}
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+  <h3>Solución</h3>
+  <table>
+    {% for row in solution %}
+      <tr>
+        {% for val in row %}<td>{{ val }}</td>{% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+</body></html>

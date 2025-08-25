@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: system-ui, sans-serif; }
+    .page { page-break-after: always; }
+    .line { border-bottom: 1px solid #999; height: 40px; }
+    .cuadrícula { background-image: linear-gradient(#ccc 1px, transparent 1px), linear-gradient(90deg, #ccc 1px, transparent 1px); background-size: 20px 20px; }
+    .blanco .line { border-bottom: none; }
+  </style>
+</head>
+<body>
+  <h2>Caligrafía #{{ jg.id }}</h2>
+  {% for page in paginas %}
+  <div class="page {{ page.lineado }}">
+    {% for linea in page.lineas %}
+    <div class="line" style="font-size:{{ page.tamaño_letra }}pt;">{{ linea }}</div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</body>
+</html>

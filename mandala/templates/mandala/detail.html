@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Mandala #{{ jg.id }}{% endblock %}
+{% block breadcrumbs %}{% include "partials/_breadcrumbs.html" %}{% endblock %}
+{% block breadcrumb_items %}
+  <li class="breadcrumb-item"><a href="{% url 'mandala:create' %}">Mandala</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Juego {{ jg.id }}</li>
+{% endblock %}
+{% block content %}
+<div class="mb-3 d-flex gap-2">
+  <a class="btn btn-primary" href="{% url 'mandala:export' jg.id 'pdf' %}">Descargar PDF</a>
+  <a class="btn btn-secondary" href="{% url 'mandala:export' jg.id 'zip' %}">Descargar ZIP</a>
+</div>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  {% for img in images %}
+  <div class="col"><img src="{{ img }}" class="img-fluid border" alt="Mandala {{ forloop.counter }}" /></div>
+  {% endfor %}
+</div>
+{% endblock %}
