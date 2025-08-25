@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    .grid { border-collapse: collapse; }
+    .grid td { width: 24px; height: 24px; text-align: center; vertical-align: middle; border: 1px solid #222; font-weight: 600; }
+    .block { background:#000; color:#000; }
+    .defs { margin-top: 16px; }
+    .defs h3 { margin: 0.6rem 0 0.2rem; }
+    .defs ol { margin: 0; padding-left: 1.1rem; }
+  </style>
+</head>
+<body>
+  <h2>Crucigrama #{{ jg.id }}</h2>
+  <table class="grid">
+    {% for row in grid %}
+      <tr>
+        {% for cell in row %}
+          {% if cell == "#" or cell == "." or cell == "" or cell is none %}
+            <td class="block">&nbsp;</td>
+          {% else %}
+            <td>{{ cell }}</td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+
+  <div class="defs">
+    <h3>Definiciones</h3>
+    <ol>
+      {% for d in definiciones %}
+        <li>{{ d.pista|default:d.definicion }} ({{ d.orientacion|default:"?" }}, fila {{ d.fila }}, col {{ d.col }})</li>
+      {% endfor %}
+    </ol>
+  </div>
+</body>
+</html>
