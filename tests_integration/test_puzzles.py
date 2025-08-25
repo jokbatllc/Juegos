@@ -16,7 +16,18 @@ def generador_user(db):
 @pytest.fixture
 def lexicon_words(db):
     lang = Idioma.objects.create(code="es", nombre="Español")
-    words = ["uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve", "diez"]
+    words = [
+        "uno",
+        "dos",
+        "tres",
+        "cuatro",
+        "cinco",
+        "seis",
+        "siete",
+        "ocho",
+        "nueve",
+        "diez",
+    ]
     for w in words:
         Palabra.objects.create(texto=w, idioma=lang)
     return lang

@@ -1,12 +1,16 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.decorators import login_required
-from core.auth import require_group
 
+from core.auth import require_group
 from puzzles.models import JuegoGenerado
 
 from .forms import CalligraphyForm
 from .services import exporter, generator
+
+
+def index(request):
+    return render(request, "calligraphy/index.html")
 
 
 @require_group("generador")
