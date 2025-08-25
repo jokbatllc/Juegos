@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Mandala - Crear{% endblock %}
+
+{% block breadcrumbs %}
+  {% include "partials/_breadcrumbs.html" %}
+{% endblock %}
+{% block breadcrumb_items %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Mandala</li>
+{% endblock %}
+
+{% block content %}
+<form method="post" class="row g-3">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Generar</button>
+  </div>
+</form>
+{% endblock %}

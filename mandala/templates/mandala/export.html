@@ -1,0 +1,12 @@
+<!doctype html>
+<html><head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: sans-serif; }
+    img { display:block; page-break-after: always; width:100%; }
+  </style>
+</head><body>
+  {% for img in images %}
+    <img src="{{ img }}" alt="mandala {{ forloop.counter }}" />
+  {% endfor %}
+</body></html>
