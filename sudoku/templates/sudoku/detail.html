@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Sudoku · Juegos{% endblock %}
+{% block breadcrumbs %}
+  {% include "partials/_breadcrumbs.html" %}
+{% endblock %}
+{% block breadcrumb_items %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'sudoku:create' %}">Sudoku</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Detalle</li>
+{% endblock %}
+{% block content %}
+<table class="table table-bordered text-center align-middle w-auto">
+  {% for row in grid %}
+  <tr>
+    {% for val in row %}
+      {% if val %}
+      <td class="bg-light">{{ val }}</td>
+      {% else %}
+      <td>&nbsp;</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+<button class="btn btn-outline-secondary my-3" type="button" data-bs-toggle="collapse" data-bs-target="#solution">Ver solución</button>
+<div id="solution" class="collapse">
+  <table class="table table-bordered text-center align-middle w-auto">
+    {% for row in solution %}
+    <tr>{% for val in row %}<td>{{ val }}</td>{% endfor %}</tr>
+    {% endfor %}
+  </table>
+</div>
+<div class="mt-3 d-flex gap-2">
+  <a class="btn btn-primary" href="{% url 'sudoku:export' jg.id 'pdf' %}">Descargar PDF</a>
+  <a class="btn btn-secondary" href="{% url 'sudoku:export' jg.id 'png' %}">Descargar PNG</a>
+</div>
+<a href="{% url 'sudoku:create' %}" class="btn btn-link mt-2">Volver</a>
+{% endblock %}

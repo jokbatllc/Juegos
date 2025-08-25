@@ -1,0 +1,11 @@
+{% extends "lexicon/base_lexicon.html" %}
+{% block content_lexicon %}
+<h1>Lexicon</h1>
+<div class="row row-cols-1 row-cols-md-2 g-3">
+  <div class="col"><a class="btn btn-outline-primary w-100" href="{% url 'lexicon:idioma_list' %}">Idiomas</a></div>
+  <div class="col"><a class="btn btn-outline-primary w-100" href="{% url 'lexicon:categoria_list' %}">Categorías</a></div>
+  <div class="col"><a class="btn btn-outline-primary w-100" href="{% url 'lexicon:palabra_list' %}">Palabras</a></div>
+  <div class="col"><a class="btn btn-outline-primary w-100" href="{% url 'lexicon:lista_list' %}">Listas</a></div>
+  <div class="col"><a class="btn btn-outline-secondary w-100" href="{% url 'lexicon:import_csv' %}">Importar CSV</a></div>
+</div>
+{% endblock %}

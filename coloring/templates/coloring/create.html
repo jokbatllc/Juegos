@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Generar dibujos para colorear{% endblock %}
+{% block breadcrumbs %}{% include "partials/_breadcrumbs.html" %}{% endblock %}
+{% block breadcrumb_items %}
+<li class="breadcrumb-item active">Coloring</li>
+{% endblock %}
+{% block content %}
+<form method="post" class="vstack gap-3" novalidate>
+  {% csrf_token %}
+  <div class="row g-3">
+    <div class="col-md-4">{{ form.tipo.label_tag }} {{ form.tipo }}</div>
+    <div class="col-md-4">{{ form.tamaño.label_tag }} {{ form.tamaño }}</div>
+    <div class="col-md-4">{{ form.complejidad.label_tag }} {{ form.complejidad }}</div>
+    <div class="col-md-4">{{ form.cantidad.label_tag }} {{ form.cantidad }}</div>
+    <div class="col-md-4">{{ form.seed.label_tag }} {{ form.seed }}</div>
+  </div>
+  <button class="btn btn-primary">Generar</button>
+</form>
+{% endblock %}

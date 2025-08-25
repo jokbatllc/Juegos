@@ -1,0 +1,5 @@
+{% extends "lexicon/base_lexicon.html" %}
+{% block content_lexicon %}
+<h2>¿Eliminar {{ obj }}?</h2>
+<form method="post">{% csrf_token %}<button class="btn btn-danger">Confirmar</button></form>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Mandala #{{ jg.id }}{% endblock %}
+{% block content %}
+<div class="mb-3 d-flex gap-2">
+  <a class="btn btn-primary" href="{% url 'mandala:export' jg.id %}?format=pdf">Descargar PDF</a>
+  <a class="btn btn-secondary" href="{% url 'mandala:export' jg.id %}?format=png">Descargar PNG</a>
+  <a class="btn btn-outline-dark" href="{% url 'mandala:export' jg.id %}?format=svg">Descargar SVG</a>
+</div>
+<div class="border">
+  {{ svg|safe }}
+</div>
+{% endblock %}
