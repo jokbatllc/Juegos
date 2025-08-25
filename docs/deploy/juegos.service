@@ -1,0 +1,17 @@
+[Unit]
+Description=Juegos Django (Docker Compose - prod)
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/deployer/Juegos
+ExecStart=/usr/bin/docker compose -f docker-compose.prod.yml --env-file .env up -d
+ExecStop=/usr/bin/docker compose -f docker-compose.prod.yml --env-file .env down
+RemainAfterExit=yes
+User=deployer
+Group=deployer
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target

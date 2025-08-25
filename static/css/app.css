@@ -1,0 +1,24 @@
+html.dark {
+  --bs-body-bg: #121212;
+  --bs-body-color: #f8f9fa;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
+}
+
+footer {
+  background-color: #212529;
+  color: #f8f9fa;
+}
+footer a {
+  color: #f8f9fa;
+}
+html.dark footer {
+  background-color: #000;
+}
+
+.badge {
+  font-size: 0.9rem;
+}

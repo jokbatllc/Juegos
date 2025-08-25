@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Cuaderno de Caligrafía · Juegos{% endblock %}
+{% block breadcrumbs %}{% include "partials/_breadcrumbs.html" %}{% endblock %}
+{% block breadcrumb_items %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'calligraphy:create' %}">Calligraphy</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Detalle</li>
+{% endblock %}
+{% block content %}
+{% for page in paginas %}
+<h5>Página {{ forloop.counter }}</h5>
+<div class="mb-3">
+  {% for linea in page.lineas %}
+  <div class="border-bottom py-1" style="font-size:{{ page.tamaño_letra }}pt;">{{ linea }}</div>
+  {% endfor %}
+</div>
+{% endfor %}
+<div class="mt-3 d-flex gap-2">
+  <a class="btn btn-outline-primary" href="{% url 'calligraphy:export' jg.id 'pdf' %}">Descargar PDF</a>
+  <a class="btn btn-secondary" href="{% url 'calligraphy:create' %}">Volver</a>
+</div>
+{% endblock %}
