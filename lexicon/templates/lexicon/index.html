@@ -1,0 +1,16 @@
+{% extends "lexicon/base_lexicon.html" %}
+{% block title %}Lexicon · Juegos{% endblock %}
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Lexicon</div>
+  </div>
+{% endblock %}
+{% block content_lexicon %}
+<div class="row">
+  <div class="col-4"><a class="btn btn-primary" href="{% url 'lexicon:idioma_list' %}">Idiomas</a></div>
+  <div class="col-4"><a class="btn btn-primary" href="{% url 'lexicon:categoria_list' %}">Categorías</a></div>
+  <div class="col-4"><a class="btn btn-primary" href="{% url 'lexicon:palabra_list' %}">Palabras</a></div>
+  <div class="col-4"><a class="btn btn-primary" href="{% url 'lexicon:lista_list' %}">Listas</a></div>
+  <div class="col-4"><a class="btn btn-primary" href="{% url 'lexicon:import_csv' %}">Importar CSV</a></div>
+</div>
+{% endblock %}

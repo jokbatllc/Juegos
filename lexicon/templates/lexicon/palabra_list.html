@@ -1,0 +1,70 @@
+{% extends "lexicon/base_lexicon.html" %}
+{% block title %}Palabras · Lexicon{% endblock %}
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Palabras</div>
+    <a class="btn btn-primary" href="{% url 'lexicon:palabra_create' %}">Nueva</a>
+  </div>
+{% endblock %}
+{% block content_lexicon %}
+<form method="get">
+  <div class="field">
+    <input type="text" name="q" value="{{ q }}" placeholder="Buscar">
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <div class="field">
+        <select name="idioma">
+          <option value="">Idioma</option>
+          {% for i in idiomas %}<option value="{{ i.code }}" {% if filtros.idioma == i.code %}selected{% endif %}>{{ i.code }}</option>{% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="field">
+        <select name="categoria">
+          <option value="">Categoría</option>
+          {% for c in categorias %}<option value="{{ c.id }}" {% if filtros.categoria|add:'' == c.id|stringformat:'s' %}selected{% endif %}>{{ c.nombre }}</option>{% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="field">
+        <input type="number" name="dificultad_min" value="{{ filtros.dificultad_min }}" placeholder="Dif. min">
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="field">
+        <input type="number" name="dificultad_max" value="{{ filtros.dificultad_max }}" placeholder="Dif. max">
+      </div>
+    </div>
+  </div>
+  <button class="btn">Filtrar</button>
+</form>
+<table class="table">
+  <tr><th>Texto</th><th>Idioma</th><th>Dificultad</th><th></th></tr>
+  {% for obj in page_obj %}
+  <tr>
+    <td>{{ obj.texto }}</td>
+    <td>{{ obj.idioma.code }}</td>
+    <td>{{ obj.dificultad }}</td>
+    <td>
+      <a href="{% url 'lexicon:palabra_edit' obj.pk %}" class="btn btn-sm">Editar</a>
+      <form action="{% url 'lexicon:palabra_delete' obj.pk %}" method="post" style="display:inline">
+        {% csrf_token %}
+        <button class="btn btn-sm btn-danger">Eliminar</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<p>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</p>
+<div class="row">
+  <div class="col-6">
+    {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}" class="btn btn-sm">Anterior</a>{% endif %}
+  </div>
+  <div class="col-6">
+    {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm">Siguiente</a>{% endif %}
+  </div>
+</div>
+{% endblock %}

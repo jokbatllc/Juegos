@@ -1,0 +1,16 @@
+{% extends "lexicon/base_lexicon.html" %}
+{% block title %}Vista previa · Lexicon{% endblock %}
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Vista previa</div>
+  </div>
+{% endblock %}
+{% block content_lexicon %}
+<table class="table">
+  {% for row in rows %}
+  {% if forloop.first %}<tr>{% for k,v in row.items %}<th>{{ k }}</th>{% endfor %}</tr>{% endif %}
+  <tr>{% for v in row.values %}<td>{{ v }}</td>{% endfor %}</tr>
+  {% endfor %}
+</table>
+<form method="post">{% csrf_token %}<button class="btn btn-primary">Confirmar</button></form>
+{% endblock %}

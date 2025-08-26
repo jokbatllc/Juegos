@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Sudoku · Juegos{% endblock %}
+
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Sudoku</div>
+    <div>
+      <a class="btn btn-sm" href="{% url 'sudoku:export' jg.id 'pdf' %}">PDF</a>
+      <a class="btn btn-sm" href="{% url 'sudoku:export' jg.id 'png' %}">PNG</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<table class="table">
+  {% for row in grid %}
+  <tr>
+    {% for cell in row %}
+    <td>{% if cell %}{{ cell }}{% endif %}</td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+<form method="post" action="{% url 'sudoku:create' %}">
+  {% csrf_token %}
+  {% for key, val in jg.parametros.items %}
+    <input type="hidden" name="{{ key }}" value="{{ val }}">
+  {% endfor %}
+  <button class="btn btn-primary">Duplicar</button>
+</form>
+{% endblock %}
