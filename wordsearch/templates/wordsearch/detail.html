@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Sopa de Letras · Juegos{% endblock %}
+
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Sopa de letras</div>
+    <div>
+      <a href="{% url 'wordsearch:export' juego.id 'pdf' %}" class="btn btn-sm">PDF</a>
+      <a href="{% url 'wordsearch:export' juego.id 'png' %}" class="btn btn-sm">PNG</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<p><strong>Tamaño:</strong> {{ juego.resultado.ancho }} × {{ juego.resultado.alto }} | <strong>Seed:</strong> {{ juego.resultado.seed }}</p>
+<pre>
+{% for row in juego.resultado.grid %}{{ row }}
+{% endfor %}
+</pre>
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Palabras a buscar ({{ palabras|length }})</div>
+  </div>
+  <ul>
+    {% for w in palabras %}
+      <li>{{ w }}</li>
+    {% empty %}
+      <li>No hay palabras.</li>
+    {% endfor %}
+  </ul>
+</div>
+<form method="post" action="{% url 'wordsearch:create' %}">
+  {% csrf_token %}
+  {% for key, val in juego.parametros.items %}
+    {% if key == 'categorias' %}
+      {% for c in val %}
+        <input type="hidden" name="categorias" value="{{ c }}">
+      {% endfor %}
+    {% else %}
+      <input type="hidden" name="{{ key }}" value="{{ val }}">
+    {% endif %}
+  {% endfor %}
+  <button class="btn btn-primary">Duplicar</button>
+</form>
+{% endblock %}

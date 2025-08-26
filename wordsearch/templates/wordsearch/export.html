@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <style>
+    table { border-collapse: collapse; font-family: monospace; }
+    td { border: 1px solid #000; width: 20px; height: 20px; text-align: center; }
+  </style>
+</head>
+<body>
+  <h3>Sopa de Letras</h3>
+  <table>
+    {% for row in juego.resultado.grid %}
+    <tr>
+      {% for ch in row %}<td>{{ ch }}</td>{% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+  <h4>Palabras</h4>
+  <ul>
+    {% for p in juego.resultado.palabras %}
+    <li>{{ p }}</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

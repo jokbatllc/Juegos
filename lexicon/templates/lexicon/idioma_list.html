@@ -1,0 +1,39 @@
+{% extends "lexicon/base_lexicon.html" %}
+{% block title %}Idiomas · Lexicon{% endblock %}
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Idiomas</div>
+    <a class="btn btn-primary" href="{% url 'lexicon:idioma_create' %}">Nuevo</a>
+  </div>
+{% endblock %}
+{% block content_lexicon %}
+<form method="get" class="field">
+  <input type="text" name="q" value="{{ q }}" placeholder="Buscar">
+  <button class="btn">Buscar</button>
+</form>
+<table class="table">
+  <tr><th>Código</th><th>Nombre</th><th></th></tr>
+  {% for obj in page_obj %}
+  <tr>
+    <td>{{ obj.code }}</td>
+    <td>{{ obj.nombre }}</td>
+    <td>
+      <a href="{% url 'lexicon:idioma_edit' obj.code %}" class="btn btn-sm">Editar</a>
+      <form action="{% url 'lexicon:idioma_delete' obj.code %}" method="post" style="display:inline">
+        {% csrf_token %}
+        <button class="btn btn-sm btn-danger">Eliminar</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<p>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</p>
+<div class="row">
+  <div class="col-6">
+    {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}&q={{ q }}" class="btn btn-sm">Anterior</a>{% endif %}
+  </div>
+  <div class="col-6">
+    {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}&q={{ q }}" class="btn btn-sm">Siguiente</a>{% endif %}
+  </div>
+</div>
+{% endblock %}

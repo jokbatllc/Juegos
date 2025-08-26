@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Cuaderno de caligrafía · Juegos{% endblock %}
+
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Cuaderno de caligrafía</div>
+    <a class="btn btn-sm" href="{% url 'calligraphy:export' juego.id 'pdf' %}">PDF</a>
+  </div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  {% for page in juego.resultado.paginas|slice:":2" %}
+  <div class="col-6">
+    <pre>{{ page.lineas|join:"\n" }}</pre>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

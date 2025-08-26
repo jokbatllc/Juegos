@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Sudoku · Juegos{% endblock %}
+
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Sudoku</div>
+    <div>
+      <a class="btn btn-sm" href="{% url 'sudoku:export' jg.id 'pdf' %}">PDF</a>
+      <a class="btn btn-sm" href="{% url 'sudoku:export' jg.id 'png' %}">PNG</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<div class="sudoku-board" style="grid-template-columns: repeat({{ size }}, 38px);">
+  {% for row in grid %}
+    {% for cell in row %}
+      {% with row_i=forloop.parentloop.counter0 col_i=forloop.counter0 %}
+        {% firstof cell "&nbsp;" as val %}
+        <div class="sudoku-cell
+          {% if row_i|divisibleby:sub_rows %}sudoku-strong-top{% endif %}
+          {% if col_i|divisibleby:sub_cols %} sudoku-strong-left{% endif %}
+          {% if forloop.last and col_i|add:1|divisibleby:sub_cols %} sudoku-strong-right{% endif %}
+          {% if forloop.parentloop.last and row_i|add:1|divisibleby:sub_rows %} sudoku-strong-bottom{% endif %}
+        ">{{ val }}</div>
+      {% endwith %}
+    {% endfor %}
+  {% endfor %}
+</div>
+<form method="post" action="{% url 'sudoku:create' %}">
+  {% csrf_token %}
+  {% for key, val in jg.parametros.items %}
+    <input type="hidden" name="{{ key }}" value="{{ val }}">
+  {% endfor %}
+  <button class="btn btn-primary">Duplicar</button>
+</form>
+{% endblock %}

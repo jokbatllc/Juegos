@@ -1,0 +1,49 @@
+# Python / venv
+__pycache__/
+*.py[cod]
+*.log
+.venv/
+venv/
+.env
+.env.*
+
+# Django artifacts
+db.sqlite3
+media/
+!media/.gitkeep
+staticfiles/
+.DS_Store
+
+# Exports and datasets
+exports/
+lexicon/datasets/*
+!lexicon/datasets/*_sample.csv
+lexicon/datasets/auto_*.csv
+
+# Other generated data
+lexicon/fixtures/*.json
+lexicon/fixtures/*.jsonl
+dumps/*.json
+dumps/*.jsonl
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python packaging
+*.egg-info/
+build/
+dist/
+
+# Compressed / binary files
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.webp
