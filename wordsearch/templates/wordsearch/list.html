@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Sopas generadas · Juegos{% endblock %}
+{% block header %}
+  <div class="card-header"><div class="card-title">Sopas generadas</div></div>
+{% endblock %}
+{% block content %}
+  <div class="row row-cols-1 row-cols-md-2 g-3">
+  {% for juego in juegos %}
+    <div class="col">
+      <div class="card p-2">
+        <pre class="mb-2">{% for row in juego.resultado.grid %}{{ row }}{% endfor %}</pre>
+        <div class="d-flex gap-1">
+          <a class="btn btn-sm" href="{% url 'wordsearch:detail' juego.id %}">Ver</a>
+          <a class="btn btn-sm" href="{% url 'wordsearch:export_grid' juego.id 'png' %}">Tablero PNG</a>
+          <a class="btn btn-sm" href="{% url 'wordsearch:export_words' juego.id 'txt' %}">Palabras TXT</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No hay elementos.</p>
+  {% endfor %}
+  </div>
+{% endblock %}

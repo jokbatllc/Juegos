@@ -1,3 +1,4 @@
+<<<<<<< ours
 {% extends 'base.html' %}
 {% block title %}Registro{% endblock %}
 {% block content %}
@@ -11,4 +12,23 @@
     </form>
   </div>
 </div>
+=======
+{% extends "base.html" %}
+{% block title %}Registro{% endblock %}
+{% block header %}
+  <div class="card-header"><div class="card-title">Crear cuenta</div></div>
+{% endblock %}
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  {% for field in form %}
+  <div class="field">
+    {{ field.label_tag }}
+    {{ field }}
+    {% for error in field.errors %}<div class="alert alert-error">{{ error }}</div>{% endfor %}
+  </div>
+  {% endfor %}
+  <button class="btn btn-primary" type="submit">Registrarse</button>
+</form>
+>>>>>>> theirs
 {% endblock %}

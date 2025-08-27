@@ -5,14 +5,22 @@ from django.db.models import Count
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
+<<<<<<< ours
 from puzzles.models import JuegoGenerado
 from .utils import DETAIL_URLS
 from core.auth import in_group
+=======
+from core.auth import in_group
+from puzzles.models import JuegoGenerado
+
+from .utils import DETAIL_URLS
+>>>>>>> theirs
 
 
 def home(request):
     cards = []
     if in_group(request.user, "generador"):
+<<<<<<< ours
         cards.extend([
             {
                 "name": "Sopa de Letras",
@@ -61,6 +69,64 @@ def home(request):
         cards.append(
             {
                 "name": "Lexicon",
+=======
+        cards.extend(
+            [
+                {
+                    "name": "Sopa de letras",
+                    "url": reverse("wordsearch:create"),
+                    "desc": "Genera sopas parametrizables",
+                    "icon": "bi-grid",
+                },
+                {
+                    "name": "Crucigrama",
+                    "url": reverse("crossword:create"),
+                    "desc": "Rejillas con pistas",
+                    "icon": "bi-table",
+                },
+                {
+                    "name": "Sudoku",
+                    "url": reverse("sudoku:create"),
+                    "desc": "N×N y dificultad",
+                    "icon": "bi-123",
+                },
+                {
+                    "name": "Dibujos (Niños)",
+                    "url": reverse("coloring:create") + "?tipo=kids",
+                    "desc": "Figuras simples",
+                    "icon": "bi-brush",
+                },
+                {
+                    "name": "Dibujos (Adultos)",
+                    "url": reverse("coloring:create") + "?tipo=adults",
+                    "desc": "Mandalas/detalle",
+                    "icon": "bi-flower3",
+                },
+                {
+                    "name": "Caligrafía",
+                    "url": reverse("calligraphy:create"),
+                    "desc": "Cuadernos PDF",
+                    "icon": "bi-pen",
+                },
+                {
+                    "name": "Mandala",
+                    "url": reverse("mandala:index"),
+                    "desc": "Simetría radial",
+                    "icon": "bi-sun",
+                },
+                {
+                    "name": "Laberintos",
+                    "url": reverse("maze:create"),
+                    "desc": "Rectangulares o circulares",
+                    "icon": "bi-diagram-3",
+                },
+            ]
+        )
+    if in_group(request.user, "editor_contenidos"):
+        cards.append(
+            {
+                "name": "Léxico",
+>>>>>>> theirs
                 "url": reverse("lexicon:index"),
                 "desc": "Palabras y categorías",
                 "icon": "bi-collection",

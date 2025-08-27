@@ -1,3 +1,4 @@
+<<<<<<< ours
 {% load static nav roles %}
 <!doctype html>
 <html lang="es">
@@ -61,4 +62,72 @@
     <script src="{% static 'js/theme.js' %}"></script>
     {% block extra_js %}{% endblock %}
   </body>
+=======
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Juegos{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="brand">Juegos</div>
+      <div class="nav-links">
+        <a href="{% url 'home' %}">Inicio</a>
+        <a href="{% url 'wordsearch:create' %}">Sopa de letras</a>
+        <a href="{% url 'crossword:create' %}">Crucigrama</a>
+        <a href="{% url 'sudoku:index' %}">Sudoku</a>
+        <a href="{% url 'coloring:create' %}">Dibujos</a>
+        <a href="{% url 'calligraphy:create' %}">Caligrafía</a>
+        <a href="{% url 'mandala:create' %}">Mandala</a>
+        <a href="{% url 'maze:create' %}">Laberintos</a>
+        <a href="{% url 'lexicon:index' %}">Léxico</a>
+      </div>
+      <div class="theme-toggle">
+        <button class="btn btn-sm" data-theme-toggle>🌗 Tema</button>
+        {% if user.is_authenticated %}
+          <span style="color:var(--muted)">Hola, {{ user.username }}</span>
+          <a class="btn btn-sm btn-ghost" href="{% url 'logout' %}">Cerrar sesión</a>
+        {% else %}
+          <a class="btn btn-sm btn-primary" href="{% url 'login' %}">Iniciar sesión</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    {% if messages %}
+      <div class="card">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% block header %}
+      <!-- Bloque opcional de cabecera por vista -->
+    {% endblock %}
+
+    {% block tabs %}
+      <!-- Si una vista tiene pestañas, declararlas aquí con .tabs y .tab -->
+    {% endblock %}
+
+    <section class="card">
+      {% block content %}{% endblock %}
+    </section>
+
+    {% block footer %}
+      <div class="footer">© {{ now|date:"Y" }} · Repositorio</div>
+    {% endblock %}
+  </main>
+
+  <script src="{% static 'js/ui.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+>>>>>>> theirs
 </html>

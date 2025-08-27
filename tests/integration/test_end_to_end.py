@@ -45,7 +45,11 @@ def test_wordsearch_end_to_end(client):
     assert resp.status_code == 302
     jg = JuegoGenerado.objects.latest("id")
     detail = client.get(resp.headers["Location"])
+<<<<<<< ours
     assert b"Palabras a encontrar" in detail.content
+=======
+    assert b"Palabras a buscar" in detail.content
+>>>>>>> theirs
     grid = jg.resultado["grid"]
     assert len(grid) == 10
     assert all(len(row) == 10 for row in grid)

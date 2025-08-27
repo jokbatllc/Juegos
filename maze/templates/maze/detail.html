@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Laberinto · Juegos{% endblock %}
+
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Laberinto</div>
+    <div>
+      <a class="btn btn-sm" href="{% url 'maze:export' jg.id 'pdf' %}">PDF</a>
+      <a class="btn btn-sm" href="{% url 'maze:export' jg.id 'png' %}">PNG</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <img src="/{{ jg.resultado.svg }}" class="img-fluid" alt="maze">
+  <h5>Solución</h5>
+  <img src="/{{ jg.resultado.solution }}" class="img-fluid" alt="solución">
+{% endblock %}

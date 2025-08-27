@@ -51,7 +51,11 @@ def test_generate_puzzles(client, generador_user, lexicon_words):
     resp = client.post(reverse("wordsearch:create"), ws_data)
     assert resp.status_code == 302
     detail = client.get(resp.headers["Location"])
+<<<<<<< ours
     assert "Palabras a encontrar" in detail.content.decode()
+=======
+    assert "Palabras a buscar" in detail.content.decode()
+>>>>>>> theirs
 
     cw_data = {
         "idioma": "es",
@@ -69,4 +73,8 @@ def test_generate_puzzles(client, generador_user, lexicon_words):
     resp = client.post(reverse("sudoku:create"), {"tamaño": 9, "dificultad": "fácil"})
     assert resp.status_code == 302
     detail = client.get(resp.headers["Location"])
+<<<<<<< ours
     assert "table" in detail.content.decode()
+=======
+    assert "Sudoku" in detail.content.decode()
+>>>>>>> theirs

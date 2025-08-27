@@ -1,0 +1,5 @@
+<div class="tabs">
+  {% for t in tabs %}
+    <a href="{{ t.href }}" class="tab {% if t.active %}active{% endif %}">{{ t.label }}</a>
+  {% endfor %}
+</div>

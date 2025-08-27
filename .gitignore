@@ -1,3 +1,4 @@
+<<<<<<< ours
 # -----------------------
 # Python / bytecode / logs
 # -----------------------
@@ -18,10 +19,23 @@ venv/
 # -----------------------
 # Artefactos Django
 # -----------------------
+=======
+# Python / venv
+__pycache__/
+*.py[cod]
+*.log
+.venv/
+venv/
+.env
+.env.*
+
+# Django artifacts
+>>>>>>> theirs
 db.sqlite3
 media/
 !media/.gitkeep
 staticfiles/
+<<<<<<< ours
 local_settings.py
 
 # -----------------------
@@ -32,19 +46,35 @@ lexicon/datasets/*
 !lexicon/datasets/*_sample.csv
 
 # Otros datos generados
+=======
+.DS_Store
+
+# Exports and datasets
+exports/
+lexicon/datasets/*
+!lexicon/datasets/*_sample.csv
+lexicon/datasets/auto_*.csv
+
+# Other generated data
+>>>>>>> theirs
 lexicon/fixtures/*.json
 lexicon/fixtures/*.jsonl
 dumps/*.json
 dumps/*.jsonl
 
+<<<<<<< ours
 # -----------------------
 # IDEs / editores
 # -----------------------
+=======
+# IDEs and editors
+>>>>>>> theirs
 .vscode/
 .idea/
 *.swp
 *.swo
 
+<<<<<<< ours
 # -----------------------
 # Archivos del SO
 # -----------------------
@@ -54,13 +84,20 @@ Thumbs.db
 # -----------------------
 # Packaging
 # -----------------------
+=======
+# Python packaging
+>>>>>>> theirs
 *.egg-info/
 build/
 dist/
 
+<<<<<<< ours
 # -----------------------
 # Comprimidos / binarios pesados
 # -----------------------
+=======
+# Compressed / binary files
+>>>>>>> theirs
 *.zip
 *.tar
 *.tar.gz

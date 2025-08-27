@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+<<<<<<< ours
 {% block title %}Dibujos #{{ jg.id }}{% endblock %}
 {% block breadcrumbs %}{% include "partials/_breadcrumbs.html" %}{% endblock %}
 {% block breadcrumb_items %}
@@ -13,6 +14,26 @@
 <div class="row row-cols-1 row-cols-md-2 g-4">
   {% for img in images %}
   <div class="col"><img src="{{ img }}" class="img-fluid border" alt="Dibujo {{ forloop.counter }}" /></div>
+=======
+{% block title %}Coloring · Juegos{% endblock %}
+
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Coloring</div>
+    <div>
+      <a class="btn btn-sm" href="{% url 'coloring:export' juego.id 'pdf' %}">PDF</a>
+      <a class="btn btn-sm" href="{% url 'coloring:export' juego.id 'zip' %}">ZIP</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  {% for img in juego.resultado %}
+  <div class="col-4">
+    <img src="{{ MEDIA_URL }}{{ img.path }}" alt="dibujo" class="img-fluid">
+  </div>
+>>>>>>> theirs
   {% endfor %}
 </div>
 {% endblock %}

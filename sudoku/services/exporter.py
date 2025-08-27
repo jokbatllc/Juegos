@@ -4,8 +4,13 @@ from pathlib import Path
 
 from django.conf import settings
 from django.template.loader import render_to_string
+<<<<<<< ours
 from weasyprint import HTML
 from PIL import Image, ImageDraw, ImageFont
+=======
+from PIL import Image, ImageDraw, ImageFont
+from weasyprint import HTML
+>>>>>>> theirs
 
 from puzzles.models import Exportacion, JuegoGenerado
 
@@ -27,7 +32,11 @@ def export_to_pdf(juego: JuegoGenerado):
     Exportacion.objects.create(
         juego=juego, formato="pdf", archivo=f"exports/sudoku/{juego.id}.pdf"
     )
+<<<<<<< ours
     return open(file_path, "rb")
+=======
+    return file_path
+>>>>>>> theirs
 
 
 def export_to_png(juego: JuegoGenerado, cell: int = 48, margin: int = 20):
@@ -66,4 +75,8 @@ def export_to_png(juego: JuegoGenerado, cell: int = 48, margin: int = 20):
     Exportacion.objects.create(
         juego=juego, formato="png", archivo=f"exports/sudoku/{juego.id}.png"
     )
+<<<<<<< ours
     return open(file_path, "rb")
+=======
+    return file_path
+>>>>>>> theirs
