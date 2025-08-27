@@ -2,27 +2,23 @@
 import os
 import sys
 
-<<<<<<< ours
-# 👇 Añade esto aquí, antes de cualquier import de Django
+# (Opcional) Soporte DLLs en Windows para WeasyPrint/Cairo.
 if os.name == "nt":
-    os.add_dll_directory(r"C:\msys64\ucrt64\bin")
+    try:
+        os.add_dll_directory(r"C:\msys64\ucrt64\bin")
+    except Exception:
+        pass
 
-=======
->>>>>>> theirs
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'juegos.settings')
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "juegos.settings")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
-<<<<<<< ours
         raise ImportError(
-            "Couldn't import Django. Are you sure it's installed and available on your "
-            "PYTHONPATH environment variable? Did you forget to activate a virtual environment?"
+            "Couldn't import Django. Is it installed and on your PYTHONPATH? "
+            "Did you forget to activate a virtual environment?"
         ) from exc
-=======
-        raise ImportError("Couldn't import Django. Are you sure it's installed and available on your PYTHONPATH environment variable? Did you forget to activate a virtual environment?") from exc
->>>>>>> theirs
     execute_from_command_line(sys.argv)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
