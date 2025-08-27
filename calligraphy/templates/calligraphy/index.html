@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+<<<<<<< ours
 
 {% block content %}
 <div class="container py-4">
@@ -6,3 +7,15 @@
   <p><a class="btn btn-primary" href="{% url 'calligraphy:create' %}">Create notebook</a></p>
 </div>
 {% endblock %}
+=======
+{% block title %}Calligraphy · Juegos{% endblock %}
+
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Calligraphy</div>
+    <a class="btn btn-primary" href="{% url 'calligraphy:create' %}">Crear cuaderno</a>
+  </div>
+{% endblock %}
+
+{% block content %}{% endblock %}
+>>>>>>> theirs

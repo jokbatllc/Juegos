@@ -1,4 +1,5 @@
 {% extends "lexicon/base_lexicon.html" %}
+<<<<<<< ours
 {% block content_lexicon %}
 <h2>Categorías</h2>
 <form method="get" class="mb-3 d-flex">
@@ -7,6 +8,21 @@
 </form>
 <a class="btn btn-primary mb-2" href="{% url 'lexicon:categoria_create' %}">Nueva</a>
 <table class="table table-sm">
+=======
+{% block title %}Categorías · Lexicon{% endblock %}
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Categorías</div>
+    <a class="btn btn-primary" href="{% url 'lexicon:categoria_create' %}">Nueva</a>
+  </div>
+{% endblock %}
+{% block content_lexicon %}
+<form method="get" class="field">
+  <input type="text" name="q" value="{{ q }}" placeholder="Buscar">
+  <button class="btn">Buscar</button>
+</form>
+<table class="table">
+>>>>>>> theirs
   <tr><th>Nombre</th><th>Slug</th><th>Tipo</th><th></th></tr>
   {% for obj in page_obj %}
   <tr>
@@ -14,15 +30,34 @@
     <td>{{ obj.slug }}</td>
     <td>{{ obj.get_tipo_contenido_display }}</td>
     <td>
+<<<<<<< ours
       <a href="{% url 'lexicon:categoria_edit' obj.pk %}" class="btn btn-sm btn-link">Editar</a>
       <form action="{% url 'lexicon:categoria_delete' obj.pk %}" method="post" class="d-inline">{% csrf_token %}<button class="btn btn-sm btn-link">Eliminar</button></form>
+=======
+      <a href="{% url 'lexicon:categoria_edit' obj.pk %}" class="btn btn-sm">Editar</a>
+      <form action="{% url 'lexicon:categoria_delete' obj.pk %}" method="post" style="display:inline">
+        {% csrf_token %}
+        <button class="btn btn-sm btn-danger">Eliminar</button>
+      </form>
+>>>>>>> theirs
     </td>
   </tr>
   {% endfor %}
 </table>
+<<<<<<< ours
 <div class="d-flex justify-content-between">
   {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}&q={{ q }}">Anterior</a>{% endif %}
   <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
   {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}&q={{ q }}">Siguiente</a>{% endif %}
+=======
+<p>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</p>
+<div class="row">
+  <div class="col-6">
+    {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}&q={{ q }}" class="btn btn-sm">Anterior</a>{% endif %}
+  </div>
+  <div class="col-6">
+    {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}&q={{ q }}" class="btn btn-sm">Siguiente</a>{% endif %}
+  </div>
+>>>>>>> theirs
 </div>
 {% endblock %}

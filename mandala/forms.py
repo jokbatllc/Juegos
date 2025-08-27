@@ -2,6 +2,7 @@ from django import forms
 
 
 class MandalaForm(forms.Form):
+<<<<<<< ours
     SIZE_CHOICES = [
         ("A4", "A4"),
         ("A5", "A5"),
@@ -31,4 +32,14 @@ class MandalaForm(forms.Form):
     def to_params(self) -> dict:
         if not self.is_valid():
             raise ValueError("Formulario no válido")
+=======
+    symmetry = forms.IntegerField(min_value=6, max_value=24, initial=12)
+    rings = forms.IntegerField(min_value=4, max_value=12, initial=7)
+    complexity = forms.IntegerField(min_value=1, max_value=10, initial=5)
+    seed = forms.IntegerField(required=False)
+
+    def to_params(self) -> dict:
+        if not self.is_valid():
+            raise forms.ValidationError("Formulario no válido")
+>>>>>>> theirs
         return self.cleaned_data.copy()

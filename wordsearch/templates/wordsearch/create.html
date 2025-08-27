@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Generar Sopa de Letras · Juegos{% endblock %}
+<<<<<<< ours
 {% block breadcrumbs %}
   {% include "partials/_breadcrumbs.html" %}
 {% endblock %}
@@ -20,5 +21,25 @@
   <div class="col-12">
     <button class="btn btn-primary" type="submit">Generar</button>
   </div>
+=======
+
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Sopa de letras</div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  {% for field in form %}
+  <div class="field">
+    {{ field.label_tag }}
+    {{ field }}
+    {% for error in field.errors %}<div class="alert alert-error">{{ error }}</div>{% endfor %}
+  </div>
+  {% endfor %}
+  <button class="btn btn-primary" type="submit">Generar</button>
+>>>>>>> theirs
 </form>
 {% endblock %}

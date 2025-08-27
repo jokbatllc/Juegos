@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Mandala #{{ jg.id }}{% endblock %}
+<<<<<<< ours
 {% block breadcrumbs %}{% include "partials/_breadcrumbs.html" %}{% endblock %}
 {% block breadcrumb_items %}
   <li class="breadcrumb-item"><a href="{% url 'mandala:create' %}">Mandala</a></li>
@@ -15,4 +16,20 @@
   <div class="col"><img src="{{ img }}" class="img-fluid border" alt="Mandala {{ forloop.counter }}" /></div>
   {% endfor %}
 </div>
+=======
+
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Mandala #{{ jg.id }}</div>
+    <div>
+      <a class="btn btn-sm" href="{% url 'mandala:export' jg.id %}?format=pdf">PDF</a>
+      <a class="btn btn-sm" href="{% url 'mandala:export' jg.id %}?format=png">PNG</a>
+      <a class="btn btn-sm" href="{% url 'mandala:export' jg.id %}?format=svg">SVG</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<div>{{ svg|safe }}</div>
+>>>>>>> theirs
 {% endblock %}

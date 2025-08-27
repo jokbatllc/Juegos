@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Crucigrama · Juegos{% endblock %}
+<<<<<<< ours
 {% block breadcrumbs %}
   {% include "partials/_breadcrumbs.html" %}
 {% endblock %}
@@ -11,11 +12,31 @@
 {% block content %}
 <p><strong>Tamaño:</strong> {{ juego.resultado.ancho }} x {{ juego.resultado.alto }} | <strong>Seed:</strong> {{ juego.resultado.seed }}</p>
 <table class="table table-bordered text-center">
+=======
+
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Crucigrama</div>
+    <div>
+      <a class="btn btn-sm" href="{% url 'crossword:export' juego.id 'pdf' %}">PDF</a>
+      <a class="btn btn-sm" href="{% url 'crossword:export' juego.id 'png' %}">PNG</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<p><strong>Tamaño:</strong> {{ juego.resultado.ancho }} × {{ juego.resultado.alto }} | <strong>Seed:</strong> {{ juego.resultado.seed }}</p>
+<table class="table">
+>>>>>>> theirs
   {% for row in juego.resultado.grid %}
   <tr>
     {% for ch in row %}
     {% if ch == '#' %}
+<<<<<<< ours
       <td class="bg-dark"></td>
+=======
+      <td></td>
+>>>>>>> theirs
     {% else %}
       <td>{{ ch }}</td>
     {% endif %}
@@ -29,17 +50,25 @@
   <li>{{ d.pista }} ({{ d.orientacion|yesno:"horizontal,vertical" }})</li>
   {% endfor %}
 </ol>
+<<<<<<< ours
 <div class="mt-3 d-flex gap-2">
   <a class="btn btn-primary" href="{% url 'crossword:export' juego.id 'pdf' %}">Descargar PDF</a>
   <a class="btn btn-secondary" href="{% url 'crossword:export' juego.id 'png' %}">Descargar PNG</a>
 </div>
 <a href="{% url 'crossword:create' %}" class="btn btn-secondary">Volver</a>
 <form method="post" action="{% url 'crossword:create' %}" class="d-inline">
+=======
+<form method="post" action="{% url 'crossword:create' %}">
+>>>>>>> theirs
   {% csrf_token %}
   {% for key, val in juego.parametros.items %}
     {% if key == 'categorias' %}
       {% for c in val %}
+<<<<<<< ours
       <input type="hidden" name="categorias" value="{{ c }}">
+=======
+        <input type="hidden" name="categorias" value="{{ c }}">
+>>>>>>> theirs
       {% endfor %}
     {% else %}
       <input type="hidden" name="{{ key }}" value="{{ val }}">

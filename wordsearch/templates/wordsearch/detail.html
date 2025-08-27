@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Sopa de Letras · Juegos{% endblock %}
+<<<<<<< ours
 {% block breadcrumbs %}
   {% include "partials/_breadcrumbs.html" %}
 {% endblock %}
@@ -26,11 +27,50 @@
 </div>
 <a href="{% url 'wordsearch:create' %}" class="btn btn-secondary">Volver</a>
 <form method="post" action="{% url 'wordsearch:create' %}" class="d-inline">
+=======
+
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Sopa de letras</div>
+    <div class="d-flex gap-2">
+      <a href="{% url 'wordsearch:export_grid' juego.id 'pdf' %}" class="btn btn-sm">Descargar tablero PDF</a>
+      <a href="{% url 'wordsearch:export_grid' juego.id 'png' %}" class="btn btn-sm">Descargar tablero PNG</a>
+      <a href="{% url 'wordsearch:export_words' juego.id 'pdf' %}" class="btn btn-sm">Descargar palabras PDF</a>
+      <a href="{% url 'wordsearch:export_words' juego.id 'txt' %}" class="btn btn-sm">Descargar palabras TXT</a>
+      <a href="{% url 'wordsearch:export_solution' juego.id 'pdf' %}" class="btn btn-sm">Descargar solución PDF</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<p><strong>Tamaño:</strong> {{ juego.resultado.ancho }} × {{ juego.resultado.alto }} | <strong>Seed:</strong> {{ juego.resultado.seed }}</p>
+<pre>
+{% for row in juego.resultado.grid %}{{ row }}
+{% endfor %}
+</pre>
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Palabras a buscar ({{ palabras|length }})</div>
+  </div>
+  <ul>
+    {% for w in palabras %}
+      <li>{{ w }}</li>
+    {% empty %}
+      <li>No hay palabras.</li>
+    {% endfor %}
+  </ul>
+</div>
+<form method="post" action="{% url 'wordsearch:create' %}">
+>>>>>>> theirs
   {% csrf_token %}
   {% for key, val in juego.parametros.items %}
     {% if key == 'categorias' %}
       {% for c in val %}
+<<<<<<< ours
       <input type="hidden" name="categorias" value="{{ c }}">
+=======
+        <input type="hidden" name="categorias" value="{{ c }}">
+>>>>>>> theirs
       {% endfor %}
     {% else %}
       <input type="hidden" name="{{ key }}" value="{{ val }}">

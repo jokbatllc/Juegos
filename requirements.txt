@@ -8,4 +8,11 @@ black
 isort
 python-dotenv
 psycopg2-binary
+<<<<<<< ours
 gunicorn
+=======
+gunicorn
+cairosvg>=2.7.0
+tinycss2
+cssselect2
+>>>>>>> theirs

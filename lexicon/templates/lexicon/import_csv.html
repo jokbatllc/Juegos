@@ -1,9 +1,28 @@
 {% extends "lexicon/base_lexicon.html" %}
+<<<<<<< ours
 {% block content_lexicon %}
 <h2>Importar CSV</h2>
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {{ form.as_p }}
+=======
+{% block title %}Importar CSV · Lexicon{% endblock %}
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Importar CSV</div>
+  </div>
+{% endblock %}
+{% block content_lexicon %}
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {% for field in form %}
+  <div class="field">
+    {{ field.label_tag }}
+    {{ field }}
+    {% for error in field.errors %}<div class="alert alert-error">{{ error }}</div>{% endfor %}
+  </div>
+  {% endfor %}
+>>>>>>> theirs
   <button class="btn btn-primary">Subir</button>
 </form>
 {% endblock %}
