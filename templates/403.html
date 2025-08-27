@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Acceso denegado{% endblock %}
+{% block header %}
+  <div class="card-header"><div class="card-title">403</div></div>
+{% endblock %}
+{% block content %}
+<p>No tienes permisos para acceder a esta página.</p>
+<p><a class="btn btn-primary" href="{% url 'login' %}">Iniciar sesión</a></p>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Inicio · Juegos{% endblock %}
+
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Juegos Django</div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <form method="get" class="field">
+    <input type="search" name="q" value="{{ query }}" placeholder="Buscar por tipo">
+    <button class="btn btn-primary" type="submit">Buscar</button>
+  </form>
+
+  <div class="row">
+    {% for card in cards %}
+    <div class="col-4">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">{{ card.name }}</div>
+        </div>
+        <p>{{ card.desc }}</p>
+        <a href="{{ card.url }}" class="btn btn-primary">Abrir</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+   <h2>Últimos generados</h2>
+  <table class="table">
+    <thead><tr><th>Tipo</th><th>Fecha</th><th></th></tr></thead>
+    <tbody>
+      {% for item in recientes %}
+      <tr>
+        <td>{{ item.obj.tipo }}</td>
+        <td>{{ item.obj.created_at|date:"Y-m-d H:i" }}</td>
+        <td><a class="btn btn-sm" href="{{ item.url }}">Ver</a></td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="3">Sin resultados</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Crucigrama · Juegos{% endblock %}
+
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Crucigrama</div>
+    <div>
+      <a class="btn btn-sm" href="{% url 'crossword:export' juego.id 'pdf' %}">PDF</a>
+      <a class="btn btn-sm" href="{% url 'crossword:export' juego.id 'png' %}">PNG</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<p><strong>Tamaño:</strong> {{ juego.resultado.ancho }} × {{ juego.resultado.alto }} | <strong>Seed:</strong> {{ juego.resultado.seed }}</p>
+<table class="table">
+  {% for row in juego.resultado.grid %}
+  <tr>
+    {% for ch in row %}
+    {% if ch == '#' %}
+      <td></td>
+    {% else %}
+      <td>{{ ch }}</td>
+    {% endif %}
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+<h5>Definiciones</h5>
+<ol>
+  {% for d in juego.resultado.definiciones %}
+  <li>{{ d.pista }} ({{ d.orientacion|yesno:"horizontal,vertical" }})</li>
+  {% endfor %}
+</ol>
+<form method="post" action="{% url 'crossword:create' %}">
+  {% csrf_token %}
+  {% for key, val in juego.parametros.items %}
+    {% if key == 'categorias' %}
+      {% for c in val %}
+        <input type="hidden" name="categorias" value="{{ c }}">
+      {% endfor %}
+    {% else %}
+      <input type="hidden" name="{{ key }}" value="{{ val }}">
+    {% endif %}
+  {% endfor %}
+  <button class="btn btn-primary">Duplicar</button>
+</form>
+{% endblock %}

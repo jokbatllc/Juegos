@@ -1,0 +1,51 @@
+{% extends "lexicon/base_lexicon.html" %}
+{% block title %}Listas · Lexicon{% endblock %}
+{% block header %}
+  <div class="card-header">
+    <div class="card-title">Listas de palabras</div>
+    <a class="btn btn-primary" href="{% url 'lexicon:lista_create' %}">Nueva</a>
+  </div>
+{% endblock %}
+{% block content_lexicon %}
+<form method="get">
+  <div class="field">
+    <input type="text" name="q" value="{{ q }}" placeholder="Buscar">
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <div class="field">
+        <select name="idioma">
+          <option value="">Idioma</option>
+          {% for i in idiomas %}<option value="{{ i.code }}" {% if filtros.idioma == i.code %}selected{% endif %}>{{ i.code }}</option>{% endfor %}
+        </select>
+      </div>
+    </div>
+  </div>
+  <button class="btn">Filtrar</button>
+</form>
+<table class="table">
+  <tr><th>Nombre</th><th>Idioma</th><th></th></tr>
+  {% for obj in page_obj %}
+  <tr>
+    <td>{{ obj.nombre }}</td>
+    <td>{{ obj.idioma.code }}</td>
+    <td>
+      <a href="{% url 'lexicon:lista_edit' obj.pk %}" class="btn btn-sm">Editar</a>
+      <form action="{% url 'lexicon:lista_delete' obj.pk %}" method="post" style="display:inline">
+        {% csrf_token %}
+        <button class="btn btn-sm btn-danger">Eliminar</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<p>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</p>
+<div class="row">
+  <div class="col-6">
+    {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}" class="btn btn-sm">Anterior</a>{% endif %}
+  </div>
+  <div class="col-6">
+    {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm">Siguiente</a>{% endif %}
+  </div>
+</div>
+{% endblock %}
