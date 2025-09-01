@@ -7,9 +7,7 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("create/", views.create, name="create"),
     path("detail/<int:pk>/", views.detail, name="detail"),
-<<<<<<< ours
-    path("export/<int:pk>/<str:formato>/", views.export, name="export"),
-=======
-    path("export/<int:pk>/", views.export, name="export"),
->>>>>>> theirs
+      path("export/<int:pk>/<str:formato>/", views.export, name="export"),
+       path("export/<int:pk>/", views.export, name="export"),
+ 
 ]

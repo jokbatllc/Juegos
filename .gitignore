@@ -1,5 +1,4 @@
-<<<<<<< ours
-# -----------------------
+  # -----------------------
 # Python / bytecode / logs
 # -----------------------
 __pycache__/
@@ -19,8 +18,7 @@ venv/
 # -----------------------
 # Artefactos Django
 # -----------------------
-=======
-# Python / venv
+   # Python / venv
 __pycache__/
 *.py[cod]
 *.log
@@ -30,13 +28,12 @@ venv/
 .env.*
 
 # Django artifacts
->>>>>>> theirs
+ 
 db.sqlite3
 media/
 !media/.gitkeep
 staticfiles/
-<<<<<<< ours
-local_settings.py
+  local_settings.py
 
 # -----------------------
 # Exportaciones y datasets (NO versionar grandes)
@@ -46,8 +43,7 @@ lexicon/datasets/*
 !lexicon/datasets/*_sample.csv
 
 # Otros datos generados
-=======
-.DS_Store
+   .DS_Store
 
 # Exports and datasets
 exports/
@@ -56,26 +52,23 @@ lexicon/datasets/*
 lexicon/datasets/auto_*.csv
 
 # Other generated data
->>>>>>> theirs
+ 
 lexicon/fixtures/*.json
 lexicon/fixtures/*.jsonl
 dumps/*.json
 dumps/*.jsonl
 
-<<<<<<< ours
-# -----------------------
+  # -----------------------
 # IDEs / editores
 # -----------------------
-=======
-# IDEs and editors
->>>>>>> theirs
+   # IDEs and editors
+ 
 .vscode/
 .idea/
 *.swp
 *.swo
 
-<<<<<<< ours
-# -----------------------
+  # -----------------------
 # Archivos del SO
 # -----------------------
 .DS_Store
@@ -84,20 +77,17 @@ Thumbs.db
 # -----------------------
 # Packaging
 # -----------------------
-=======
-# Python packaging
->>>>>>> theirs
+   # Python packaging
+ 
 *.egg-info/
 build/
 dist/
 
-<<<<<<< ours
-# -----------------------
+  # -----------------------
 # Comprimidos / binarios pesados
 # -----------------------
-=======
-# Compressed / binary files
->>>>>>> theirs
+   # Compressed / binary files
+ 
 *.zip
 *.tar
 *.tar.gz

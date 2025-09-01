@@ -8,22 +8,19 @@ from core.auth import require_group
 from puzzles.models import JuegoGenerado
 
 from .forms import WordsearchForm
-<<<<<<< ours
-from .services import repository, generator, exporter
+  from .services import repository, generator, exporter
 
 
 def index(request):
     # Aterriza en el formulario de creación
     return redirect("wordsearch:create")
-=======
-from .services import exporter, generator, repository
->>>>>>> theirs
+   from .services import exporter, generator, repository
+ 
 
 
 @require_group("generador")
 def create(request):
-<<<<<<< ours
-    if request.method == "POST":
+      if request.method == "POST":
         form = WordsearchForm(request.POST)
         if form.is_valid():
             params = form.to_params()
@@ -54,8 +51,7 @@ def create(request):
         form = WordsearchForm()
 
     return render(request, "wordsearch/create.html", {"form": form})
-=======
-    if request.method == 'POST':
+       if request.method == 'POST':
         form = WordsearchForm(request.POST)
         if form.is_valid():
             params = form.to_params()
@@ -90,13 +86,12 @@ def create(request):
     else:
         form = WordsearchForm()
     return render(request, 'wordsearch/create.html', {'form': form})
->>>>>>> theirs
+ 
 
 
 @login_required
 def detail(request, pk):
-<<<<<<< ours
-    juego = get_object_or_404(JuegoGenerado, pk=pk, tipo="wordsearch")
+      juego = get_object_or_404(JuegoGenerado, pk=pk, tipo="wordsearch")
     return render(request, "wordsearch/detail.html", {"juego": juego})
 
 
@@ -112,8 +107,7 @@ def export(request, pk, formato):
     else:
         raise Http404
     return FileResponse(file_obj, as_attachment=True, filename=filename)
-=======
-    juego = get_object_or_404(JuegoGenerado, pk=pk, tipo='wordsearch')
+       juego = get_object_or_404(JuegoGenerado, pk=pk, tipo='wordsearch')
     palabras = juego.resultado.get('palabras', [])
     return render(
         request, 'wordsearch/detail.html', {'juego': juego, 'palabras': palabras}
@@ -177,4 +171,4 @@ def export_solution(request, pk, fmt):
         f'attachment; filename="wordsearch_{pk}_solution.{fmt}"'
     )
     return resp
->>>>>>> theirs
+ 

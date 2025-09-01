@@ -1,21 +1,17 @@
 from django import forms
-<<<<<<< ours
-from lexicon.models import Idioma, Categoria
-=======
-
+  from lexicon.models import Idioma, Categoria
+   
 from lexicon.models import Categoria, Idioma
->>>>>>> theirs
+ 
 
 
 class WordsearchForm(forms.Form):
     idioma = forms.ModelChoiceField(queryset=Idioma.objects.all())
-<<<<<<< ours
-    categorias = forms.ModelMultipleChoiceField(queryset=Categoria.objects.all(), required=False)
-=======
-    categorias = forms.ModelMultipleChoiceField(
+      categorias = forms.ModelMultipleChoiceField(queryset=Categoria.objects.all(), required=False)
+       categorias = forms.ModelMultipleChoiceField(
         queryset=Categoria.objects.all(), required=False
     )
->>>>>>> theirs
+ 
     ancho = forms.IntegerField(min_value=5, max_value=30, initial=12)
     alto = forms.IntegerField(min_value=5, max_value=30, initial=12)
     num_palabras = forms.IntegerField(min_value=3, max_value=100, initial=15)
@@ -25,8 +21,7 @@ class WordsearchForm(forms.Form):
     dificultad_min = forms.IntegerField(min_value=1, max_value=5, initial=1)
     dificultad_max = forms.IntegerField(min_value=1, max_value=5, initial=5)
     seed = forms.IntegerField(required=False)
-<<<<<<< ours
-
+  
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
@@ -36,9 +31,8 @@ class WordsearchForm(forms.Form):
                 field.widget.attrs.setdefault('class', 'form-select')
             else:
                 field.widget.attrs.setdefault('class', 'form-control')
-=======
-    cantidad = forms.IntegerField(min_value=1, max_value=10, initial=1)
->>>>>>> theirs
+       cantidad = forms.IntegerField(min_value=1, max_value=10, initial=1)
+ 
 
     def clean(self):
         cleaned = super().clean()
@@ -46,14 +40,12 @@ class WordsearchForm(forms.Form):
         alto = cleaned.get('alto') or 0
         num_palabras = cleaned.get('num_palabras') or 0
         if num_palabras > (ancho * alto) // 3:
-<<<<<<< ours
-            self.add_error('num_palabras', 'Demasiadas palabras para el tamaño del tablero.')
+              self.add_error('num_palabras', 'Demasiadas palabras para el tamaño del tablero.')
         min_d = cleaned.get('dificultad_min')
         max_d = cleaned.get('dificultad_max')
         if min_d is not None and max_d is not None and min_d > max_d:
             self.add_error('dificultad_max', 'La dificultad máxima debe ser mayor o igual a la mínima.')
-=======
-            self.add_error(
+               self.add_error(
                 'num_palabras', 'Demasiadas palabras para el tamaño del tablero.'
             )
         min_d = cleaned.get('dificultad_min')
@@ -63,20 +55,18 @@ class WordsearchForm(forms.Form):
                 'dificultad_max',
                 'La dificultad máxima debe ser mayor o igual a la mínima.',
             )
->>>>>>> theirs
+ 
         return cleaned
 
     def to_params(self):
         data = self.cleaned_data
-<<<<<<< ours
-        categorias = [c.id for c in data['categorias']] if data['categorias'] else list(Categoria.objects.values_list('id', flat=True))
-=======
-        categorias = (
+          categorias = [c.id for c in data['categorias']] if data['categorias'] else list(Categoria.objects.values_list('id', flat=True))
+           categorias = (
             [c.id for c in data['categorias']]
             if data['categorias']
             else list(Categoria.objects.values_list('id', flat=True))
         )
->>>>>>> theirs
+ 
         return {
             'idioma': data['idioma'].code,
             'categorias': categorias,

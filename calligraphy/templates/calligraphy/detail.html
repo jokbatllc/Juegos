@@ -1,9 +1,8 @@
 {% extends "base.html" %}
-<<<<<<< ours
-{% block title %}Cuaderno de Caligrafía · Juegos{% endblock %}
+  {% block title %}Cuaderno de Caligrafía · Juegos{% endblock %}
 {% block breadcrumbs %}{% include "partials/_breadcrumbs.html" %}{% endblock %}
 {% block breadcrumb_items %}
-  <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Inicio</a></li>
   <li class="breadcrumb-item"><a href="{% url 'calligraphy:create' %}">Calligraphy</a></li>
   <li class="breadcrumb-item active" aria-current="page">Detalle</li>
 {% endblock %}
@@ -20,8 +19,7 @@
   <a class="btn btn-outline-primary" href="{% url 'calligraphy:export' jg.id 'pdf' %}">Descargar PDF</a>
   <a class="btn btn-secondary" href="{% url 'calligraphy:create' %}">Volver</a>
 </div>
-=======
-{% block title %}Cuaderno de caligrafía · Juegos{% endblock %}
+   {% block title %}Cuaderno de caligrafía · Juegos{% endblock %}
 
 {% block header %}
   <div class="card-header">
@@ -38,5 +36,5 @@
   </div>
   {% endfor %}
 </div>
->>>>>>> theirs
+ 
 {% endblock %}

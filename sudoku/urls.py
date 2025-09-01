@@ -1,8 +1,6 @@
 from django.urls import path
-<<<<<<< ours
-=======
-
->>>>>>> theirs
+     
+ 
 from . import views
 
 app_name = "sudoku"

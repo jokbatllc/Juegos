@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Sudoku · Juegos{% endblock %}
-<<<<<<< ours
-{% block breadcrumbs %}
+  {% block breadcrumbs %}
   {% include "partials/_breadcrumbs.html" %}
 {% endblock %}
 {% block breadcrumb_items %}
-  <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Inicio</a></li>
   <li class="breadcrumb-item"><a href="{% url 'sudoku:create' %}">Sudoku</a></li>
   <li class="breadcrumb-item active" aria-current="page">Detalle</li>
 {% endblock %}
@@ -36,8 +35,7 @@
   <a class="btn btn-secondary" href="{% url 'sudoku:export' jg.id 'png' %}">Descargar PNG</a>
 </div>
 <a href="{% url 'sudoku:create' %}" class="btn btn-link mt-2">Volver</a>
-=======
-
+   
 {% block header %}
   <div class="card-header">
     <div class="card-title">Sudoku</div>
@@ -71,5 +69,5 @@
   {% endfor %}
   <button class="btn btn-primary">Duplicar</button>
 </form>
->>>>>>> theirs
+ 
 {% endblock %}

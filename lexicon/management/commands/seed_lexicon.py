@@ -262,7 +262,5 @@ class Command(BaseCommand):
         self.stdout.write(f"  generar: {gen_time:.2f}s")
         self.stdout.write(f"  insertar: {insert_time:.2f}s")
         self.stdout.write(f"  total: {total_time:.2f}s")
-<<<<<<< ours
-
-=======
->>>>>>> theirs
+  
+    

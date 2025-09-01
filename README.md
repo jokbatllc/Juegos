@@ -1,23 +1,19 @@
 # Juegos
 
-<<<<<<< ours
-Proyecto Django para generar y exportar **crucigramas**, **sopas de letras**, **sudokus**, **dibujos para colorear**, **cuadernos de caligrafía** y **mandalas**.  
+  Proyecto Django para generar y exportar **crucigramas**, **sopas de letras**, **sudokus**, **dibujos para colorear**, **cuadernos de caligrafía** y **mandalas**.  
 Incluye un **Lexicon** para gestionar palabras y categorías.
 
 ---
-=======
-Proyecto Django para generar y exportar crucigramas, sopas de letras, sudokus, dibujos para colorear, cuadernos de caligrafía y mandalas. Incluye un Lexicon para gestionar palabras y categorías.
->>>>>>> theirs
+   Proyecto Django para generar y exportar crucigramas, sopas de letras, sudokus, dibujos para colorear, cuadernos de caligrafía y mandalas. Incluye un Lexicon para gestionar palabras y categorías.
+ 
 
 ## Instalación
 
 1. Crear y activar un entorno virtual:
-<<<<<<< ours
-   ```bash
+     ```bash
    python -m venv venv && source venv/bin/activate     # Linux/Mac
    # En Windows:  venv\Scripts\activate
-=======
-   `python -m venv venv && source venv/bin/activate`
+      `python -m venv venv && source venv/bin/activate`
 2. Instalar dependencias:
    `pip install -r requirements.txt`
 3. Ejecutar migraciones:
@@ -144,4 +140,4 @@ Consulta [docs/deploy/README_VPS.md](docs/deploy/README_VPS.md) para instruccion
 ## Sopa de letras
 
 Tras generar una sopa de letras, la página de detalle ofrece descargas separadas del tablero, la lista de palabras y la solución en PDF, PNG o TXT. Puedes elegir el fondo blanco o transparente añadiendo `?bg=white` o `?bg=transparent` a la URL de descarga. Al generar varias sopas a la vez se muestran en una lista con enlaces individuales de descarga.
->>>>>>> theirs
+ 

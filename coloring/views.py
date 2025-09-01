@@ -3,35 +3,40 @@ from __future__ import annotations
 import random
 
 from django.conf import settings
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import FileResponse, Http404
 from django.contrib.auth.decorators import login_required
-from core.auth import require_group
+from django.http import FileResponse, Http404
+from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import ColoringForm
-from .services import generator, exporter
+from core.auth import require_group
 from puzzles.models import JuegoGenerado
 
+from .forms import ColoringForm
+from .services import exporter, generator
 
-<<<<<<< ours
+
 def index(request):
-    # Evita depender de una plantilla "index": llevamos al usuario al formulario
+    """Redirige al formulario de creación."""
     return redirect("coloring:create")
 
 
-=======
->>>>>>> theirs
 @require_group("generador")
 def create(request):
     if request.method == "POST":
         form = ColoringForm(request.POST)
         if form.is_valid():
             params = form.to_params()
+
+            # Asegurar semilla
             if not params.get("seed"):
                 params["seed"] = random.randint(0, 1_000_000)
+
+            # Generar dibujos (lista de dicts con 'path')
             drawings = generator.generate(params)
             resultado = [d["path"] for d in drawings]
-            tipo = "coloring_kids" if params["tipo"] == "kids" else "coloring_adults"
+
+            # Tipo según público
+            tipo = "coloring_kids" if params.get("tipo") == "kids" else "coloring_adults"
+
             juego = JuegoGenerado.objects.create(
                 tipo=tipo,
                 parametros=params,
@@ -43,6 +48,7 @@ def create(request):
     else:
         initial = {"tipo": request.GET.get("tipo", "kids")}
         form = ColoringForm(initial=initial)
+
     return render(request, "coloring/create.html", {"form": form})
 
 
@@ -60,12 +66,14 @@ def export(request, pk, formato):
     juego = get_object_or_404(
         JuegoGenerado, pk=pk, tipo__in=["coloring_kids", "coloring_adults"]
     )
+
     if formato == "pdf":
         file_obj = exporter.export_to_pdf(juego)
         filename = f"coloring_{juego.id}.pdf"
-    elif formato == "zip":
-        file_obj = exporter.export_to_zip(juego)
-        filename = f"coloring_{juego.id}.zip"
+    elif formato == "png":
+        file_obj = exporter.export_to_png(juego)
+        filename = f"coloring_{juego.id}.png"
     else:
-        raise Http404
+        raise Http404("Formato no soportado")
+
     return FileResponse(file_obj, as_attachment=True, filename=filename)

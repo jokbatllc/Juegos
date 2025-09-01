@@ -1,79 +1,5 @@
-<<<<<<< ours
 from __future__ import annotations
 
-import math
-import random
-from pathlib import Path
-
-from django.conf import settings
-
-
-SIZE_MAP = {"A4": 800, "A5": 600, "500": 500, "1000": 1000}
-COMPLEXITY_MAP = {"simple": 5, "medio": 10, "detallado": 20, "extremo": 40}
-
-
-def _ensure_dir(path: Path) -> None:
-    path.mkdir(parents=True, exist_ok=True)
-
-
-def _draw_svg(size: int, segments: int, complexity: str, seed: int | None) -> str:
-    rng = random.Random(seed)
-    cx = cy = size / 2
-    seg_angle = 2 * math.pi / segments
-    lines = []
-    count = COMPLEXITY_MAP.get(complexity, 10)
-    for _ in range(count):
-        angle = rng.random() * seg_angle
-        radius = rng.random() * (size / 2)
-        x = cx + radius * math.cos(angle)
-        y = cy + radius * math.sin(angle)
-        for k in range(segments):
-            a = angle + k * seg_angle
-            xk = cx + radius * math.cos(a)
-            yk = cy + radius * math.sin(a)
-            lines.append(
-                f'<line x1="{cx}" y1="{cy}" x2="{xk:.2f}" y2="{yk:.2f}" stroke="black" stroke-width="1" />'
-            )
-    # add some circles
-    for _ in range(count // 4):
-        r = rng.random() * (size / 2)
-        lines.append(
-            f'<circle cx="{cx}" cy="{cy}" r="{r:.2f}" stroke="black" stroke-width="1" fill="none" />'
-        )
-    svg = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 {size} {size}">',
-        *lines,
-        "</svg>",
-    ]
-    return "".join(svg)
-
-
-def generate(params: dict, base_id: int) -> list[dict]:
-    size = SIZE_MAP.get(params["tamaño"], 800)
-    segments = int(params["simetría"])
-    complexity = params["complejidad"]
-    cantidad = params["cantidad"]
-    seed = params.get("semilla")
-
-    base_path = Path(settings.MEDIA_ROOT) / "exports" / "mandala"
-    _ensure_dir(base_path)
-
-    results: list[dict] = []
-    for i in range(cantidad):
-        this_seed = None if seed is None else seed + i
-        svg_data = _draw_svg(size, segments, complexity, this_seed)
-        file_path = base_path / f"{base_id}_{i+1}.svg"
-        file_path.write_text(svg_data, encoding="utf-8")
-        results.append(
-            {
-                "path": f"exports/mandala/{file_path.name}",
-                "tamaño": params["tamaño"],
-                "complejidad": complexity,
-                "simetría": params["simetría"],
-            }
-        )
-    return results
-=======
 import math
 import random
 from dataclasses import dataclass
@@ -82,8 +8,17 @@ from typing import Tuple
 
 from django.conf import settings
 
-# SVG helpers --------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# Config y mapeos
+# ---------------------------------------------------------------------------
 
+SIZE_MAP = {"A4": 800, "A5": 600, "500": 500, "1000": 1000}
+COMPLEXITY_MAP = {"simple": 3, "medio": 5, "detallado": 7, "extremo": 9}
+
+
+# ---------------------------------------------------------------------------
+# Utilidades SVG
+# ---------------------------------------------------------------------------
 
 def svg_header(w: int, h: int, bg: str | None = None) -> str:
     bg_rect = f'<rect width="{w}" height="{h}" fill="{bg}"/>' if bg else ""
@@ -119,8 +54,9 @@ def dot(cx, cy, r=1.2, fill="#000") -> str:
     return f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="{fill}" stroke="none"/>'
 
 
-# Geometry -----------------------------------------------------------------
-
+# ---------------------------------------------------------------------------
+# Geometría
+# ---------------------------------------------------------------------------
 
 def rotate_point(x: float, y: float, ang: float) -> Tuple[float, float]:
     ca, sa = math.cos(ang), math.sin(ang)
@@ -131,8 +67,9 @@ def pol2cart(r: float, theta: float) -> Tuple[float, float]:
     return (r * math.cos(theta), r * math.sin(theta))
 
 
-# Motifs (Bézier petals/leaves, arcs, stars, etc.) -------------------------
-
+# ---------------------------------------------------------------------------
+# Motivos
+# ---------------------------------------------------------------------------
 
 def bezier_petal(r_in: float, r_out: float, w: float) -> str:
     x0, y0 = r_in, 0
@@ -185,22 +122,20 @@ def kfold(d: str, k: int, stroke="#000", fill="none", sw=1.2) -> str:
     return "".join(out)
 
 
-# Parameters ----------------------------------------------------------------
-
+# ---------------------------------------------------------------------------
+# Parámetros y generador
+# ---------------------------------------------------------------------------
 
 @dataclass
 class MandalaParams:
-    size: int = 2048
-    margin: int = 80
+    size: int = 1024
+    margin: int = 64
     symmetry: int = 12
     rings: int = 7
     complexity: int = 5
     stroke: str = "#000"
     bg: str | None = None
     seed: int | None = None
-
-
-# Generator -----------------------------------------------------------------
 
 
 def generate_mandala_svg(p: MandalaParams) -> str:
@@ -232,37 +167,25 @@ def generate_mandala_svg(p: MandalaParams) -> str:
         if choice < 0.30:
             base_w = (r_out - r_in) * (0.55 + 0.15 * random.random())
             d0 = bezier_petal(r_in, r_out, base_w)
-            ring_group.append(
-                kfold(d0, p.symmetry, stroke=p.stroke, fill="none", sw=sw)
-            )
+            ring_group.append(kfold(d0, p.symmetry, stroke=p.stroke, fill="none", sw=sw))
         elif choice < 0.55:
             d0 = leaf(r_in, r_out, (r_out - r_in) * (0.5 + 0.2 * random.random()))
-            ring_group.append(
-                kfold(d0, p.symmetry, stroke=p.stroke, fill="none", sw=sw)
-            )
+            ring_group.append(kfold(d0, p.symmetry, stroke=p.stroke, fill="none", sw=sw))
             d1 = arc_ring((r_in + r_out) * 0.5, 0, 2 * math.pi / p.symmetry - 0.06)
-            ring_group.append(
-                kfold(d1, p.symmetry, stroke=p.stroke, fill="none", sw=sw * 0.7)
-            )
+            ring_group.append(kfold(d1, p.symmetry, stroke=p.stroke, fill="none", sw=sw * 0.7))
         elif choice < 0.75:
             tips = 5 if p.symmetry % 2 == 0 else 6
             d0 = star(r_in * 0.9, r_out * 0.95, tips)
-            ring_group.append(
-                kfold(d0, p.symmetry, stroke=p.stroke, fill="none", sw=sw)
-            )
+            ring_group.append(kfold(d0, p.symmetry, stroke=p.stroke, fill="none", sw=sw))
         else:
             for i in range(motif_count):
                 ang = (2 * math.pi / motif_count) * i
                 r_mid = (r_in + r_out) * 0.5
                 jitter = (r_out - r_in) * 0.15 * (random.random() - 0.5)
                 x, y = pol2cart(r_mid + jitter, ang)
-                ring_group.append(
-                    dot(x, y, r=1.0 + 0.6 * random.random(), fill=p.stroke)
-                )
+                ring_group.append(dot(x, y, r=1.0 + 0.6 * random.random(), fill=p.stroke))
             d1 = arc_ring(r_out, 0, 2 * math.pi / p.symmetry - 0.05)
-            ring_group.append(
-                kfold(d1, p.symmetry, stroke=p.stroke, fill="none", sw=sw * 0.7)
-            )
+            ring_group.append(kfold(d1, p.symmetry, stroke=p.stroke, fill="none", sw=sw * 0.7))
 
         ring_group.append(group_close())
         svg.extend(ring_group)
@@ -278,27 +201,24 @@ def generate_mandala_svg(p: MandalaParams) -> str:
     return "".join(svg)
 
 
-# Export helpers ------------------------------------------------------------
-
+# ---------------------------------------------------------------------------
+# Export helpers
+# ---------------------------------------------------------------------------
 
 def svg_to_png(svg: str, out_path: Path, scale: float = 1.0) -> None:
     try:
         import cairosvg
-    except Exception as e:  # pragma: no cover - missing dependency
+    except Exception as e:  # pragma: no cover
         raise RuntimeError("cairosvg is required for PNG/PDF export") from e
-    cairosvg.svg2png(
-        bytestring=svg.encode("utf-8"), write_to=str(out_path), scale=scale
-    )
+    cairosvg.svg2png(bytestring=svg.encode("utf-8"), write_to=str(out_path), scale=scale)
 
 
 def svg_to_pdf(svg: str, out_path: Path, scale: float = 1.0) -> None:
     try:
         import cairosvg
-    except Exception as e:  # pragma: no cover - missing dependency
+    except Exception as e:  # pragma: no cover
         raise RuntimeError("cairosvg is required for PNG/PDF export") from e
-    cairosvg.svg2pdf(
-        bytestring=svg.encode("utf-8"), write_to=str(out_path), scale=scale
-    )
+    cairosvg.svg2pdf(bytestring=svg.encode("utf-8"), write_to=str(out_path), scale=scale)
 
 
 def save_svg(svg: str, filename: str) -> str:
@@ -307,4 +227,51 @@ def save_svg(svg: str, filename: str) -> str:
     out_path = base / filename
     out_path.write_text(svg, encoding="utf-8")
     return f"exports/mandala/{filename}"
->>>>>>> theirs
+
+
+# ---------------------------------------------------------------------------
+# API principal usado por views.py
+# ---------------------------------------------------------------------------
+
+def generate(params: dict, base_id: int) -> list[dict]:
+    """
+    Genera 'cantidad' SVGs y devuelve una lista de dicts con:
+    { "path": "exports/mandala/<archivo>.svg", "tamaño": ..., "complejidad": ..., "simetría": ... }
+    """
+    # Tamaño
+    raw_size = str(params.get("tamaño", "A4"))
+    size = SIZE_MAP.get(raw_size, 800)
+
+    # Simetría
+    symmetry = int(params.get("simetría", "12"))
+
+    # Complejidad -> entero
+    complexity_key = str(params.get("complejidad", "medio"))
+    complexity = COMPLEXITY_MAP.get(complexity_key, 5)
+
+    # Cantidad y semilla
+    cantidad = int(params.get("cantidad", 1))
+    seed = params.get("semilla")
+
+    results: list[dict] = []
+    for i in range(max(1, cantidad)):
+        this_seed = None if seed is None else int(seed) + i
+        svg = generate_mandala_svg(
+            MandalaParams(
+                size=size,
+                symmetry=symmetry,
+                rings=7,
+                complexity=complexity,
+                seed=this_seed,
+            )
+        )
+        rel_path = save_svg(svg, f"{base_id}_{i+1}.svg")
+        results.append(
+            {
+                "path": rel_path,
+                "tamaño": raw_size,
+                "complejidad": complexity_key,
+                "simetría": str(symmetry),
+            }
+        )
+    return results

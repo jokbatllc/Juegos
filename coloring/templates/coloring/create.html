@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-<<<<<<< ours
-{% block title %}Generar dibujos para colorear{% endblock %}
+  {% block title %}Generar dibujos para colorear{% endblock %}
 {% block breadcrumbs %}{% include "partials/_breadcrumbs.html" %}{% endblock %}
 {% block breadcrumb_items %}
 <li class="breadcrumb-item active">Coloring</li>
@@ -16,8 +15,7 @@
     <div class="col-md-4">{{ form.seed.label_tag }} {{ form.seed }}</div>
   </div>
   <button class="btn btn-primary">Generar</button>
-=======
-{% block title %}Coloring · Juegos{% endblock %}
+   {% block title %}Coloring · Juegos{% endblock %}
 
 {% block header %}
   <div class="card-header">
@@ -36,6 +34,6 @@
   </div>
   {% endfor %}
   <button class="btn btn-primary" type="submit">Generar</button>
->>>>>>> theirs
+ 
 </form>
 {% endblock %}

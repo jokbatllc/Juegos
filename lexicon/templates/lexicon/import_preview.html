@@ -1,10 +1,8 @@
 {% extends "lexicon/base_lexicon.html" %}
-<<<<<<< ours
-{% block content_lexicon %}
+  {% block content_lexicon %}
 <h2>Vista previa</h2>
 <table class="table table-sm">
-=======
-{% block title %}Vista previa · Lexicon{% endblock %}
+   {% block title %}Vista previa · Lexicon{% endblock %}
 {% block header %}
   <div class="card-header">
     <div class="card-title">Vista previa</div>
@@ -12,15 +10,13 @@
 {% endblock %}
 {% block content_lexicon %}
 <table class="table">
->>>>>>> theirs
+ 
   {% for row in rows %}
   {% if forloop.first %}<tr>{% for k,v in row.items %}<th>{{ k }}</th>{% endfor %}</tr>{% endif %}
   <tr>{% for v in row.values %}<td>{{ v }}</td>{% endfor %}</tr>
   {% endfor %}
 </table>
-<<<<<<< ours
-<form method="post">{% csrf_token %}<button class="btn btn-success">Confirmar</button></form>
-=======
-<form method="post">{% csrf_token %}<button class="btn btn-primary">Confirmar</button></form>
->>>>>>> theirs
+  <form method="post">{% csrf_token %}<button class="btn btn-success">Confirmar</button></form>
+   <form method="post">{% csrf_token %}<button class="btn btn-primary">Confirmar</button></form>
+ 
 {% endblock %}

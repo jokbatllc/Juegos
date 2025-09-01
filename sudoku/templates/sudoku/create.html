@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Generar Sudoku · Juegos{% endblock %}
-<<<<<<< ours
-{% block breadcrumbs %}
+  {% block breadcrumbs %}
   {% include "partials/_breadcrumbs.html" %}
 {% endblock %}
 {% block breadcrumb_items %}
-  <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Inicio</a></li>
   <li class="breadcrumb-item active" aria-current="page">Sudoku</li>
 {% endblock %}
 {% block content %}
@@ -21,8 +20,7 @@
   <div class="col-12">
     <button class="btn btn-primary" type="submit">Generar</button>
   </div>
-=======
-
+   
 {% block header %}
   <div class="card-header">
     <div class="card-title">Sudoku</div>
@@ -40,6 +38,6 @@
   </div>
   {% endfor %}
   <button class="btn btn-primary" type="submit">Generar</button>
->>>>>>> theirs
+ 
 </form>
 {% endblock %}

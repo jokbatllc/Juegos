@@ -4,13 +4,8 @@ from pathlib import Path
 
 from django.conf import settings
 from django.template.loader import render_to_string
-<<<<<<< ours
 from weasyprint import HTML
 from PIL import Image, ImageDraw, ImageFont
-=======
-from PIL import Image, ImageDraw, ImageFont
-from weasyprint import HTML
->>>>>>> theirs
 
 from puzzles.models import Exportacion, JuegoGenerado
 
@@ -19,35 +14,42 @@ def _ensure_dir(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
 
 
-def export_to_pdf(juego: JuegoGenerado):
+def export_to_pdf(juego: JuegoGenerado) -> str:
     grid = juego.resultado.get("grid", [])
     solution = juego.resultado.get("solution", [])
+
     html = render_to_string(
-        "sudoku/export.html", {"jg": juego, "grid": grid, "solution": solution}
+        "sudoku/export.html",
+        {"jg": juego, "grid": grid, "solution": solution},
     )
     pdf_bytes = HTML(string=html).write_pdf()
+
     file_path = Path(settings.MEDIA_ROOT) / "exports" / "sudoku" / f"{juego.id}.pdf"
     _ensure_dir(file_path)
     file_path.write_bytes(pdf_bytes)
+
     Exportacion.objects.create(
-        juego=juego, formato="pdf", archivo=f"exports/sudoku/{juego.id}.pdf"
+        juego=juego,
+        formato="pdf",
+        archivo=f"exports/sudoku/{juego.id}.pdf",
     )
-<<<<<<< ours
-    return open(file_path, "rb")
-=======
-    return file_path
->>>>>>> theirs
+
+    # Devolvemos la ruta para que la vista haga open(file_path, "rb")
+    return str(file_path)
 
 
-def export_to_png(juego: JuegoGenerado, cell: int = 48, margin: int = 20):
+def export_to_png(juego: JuegoGenerado, cell: int = 48, margin: int = 20) -> str:
     grid = juego.resultado.get("grid", [])
     if not grid:
         raise ValueError("No hay datos de grid para exportar")
+
     n = len(grid)
     width = margin * 2 + cell * n
     height = margin * 2 + cell * n
+
     img = Image.new("RGB", (width, height), "white")
     draw = ImageDraw.Draw(img)
+
     try:
         font = ImageFont.truetype("DejaVuSansMono.ttf", cell - 10)
     except OSError:
@@ -72,11 +74,11 @@ def export_to_png(juego: JuegoGenerado, cell: int = 48, margin: int = 20):
     file_path = Path(settings.MEDIA_ROOT) / "exports" / "sudoku" / f"{juego.id}.png"
     _ensure_dir(file_path)
     img.save(file_path, "PNG")
+
     Exportacion.objects.create(
-        juego=juego, formato="png", archivo=f"exports/sudoku/{juego.id}.png"
+        juego=juego,
+        formato="png",
+        archivo=f"exports/sudoku/{juego.id}.png",
     )
-<<<<<<< ours
-    return open(file_path, "rb")
-=======
-    return file_path
->>>>>>> theirs
+
+    return str(file_path)

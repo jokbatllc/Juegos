@@ -1,6 +1,5 @@
 from django.urls import path
-<<<<<<< ours
-from . import views
+  from . import views
 
 app_name = "wordsearch"
 
@@ -9,8 +8,7 @@ urlpatterns = [
     path("create/", views.create, name="create"),
     path("detail/<int:pk>/", views.detail, name="detail"),
     path("export/<int:pk>/<str:formato>/", views.export, name="export"),
-=======
-
+   
 from . import views
 
 app_name = 'wordsearch'
@@ -26,5 +24,5 @@ urlpatterns = [
         views.export_solution,
         name='export_solution',
     ),
->>>>>>> theirs
+ 
 ]

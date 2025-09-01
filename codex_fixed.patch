@@ -5732,8 +5732,7 @@ index 0000000000000000000000000000000000000000..a7e263f8b3bd1435059a65285ac87679
 --- /dev/null
 +++ b/static/css/theme.css
 @@ -0,0 +1,200 @@
-+/* =========================================
-+   Theme: MES-like (clean, modern, tabs/cards)
++/* ==================================   +   Theme: MES-like (clean, modern, tabs/cards)
 +   ========================================= */
 +:root{
 +  --bg: #f7f8fb;
@@ -6475,7 +6474,7 @@ index 0000000000000000000000000000000000000000..8783a3d2431e2afdc287600e522fc896
 +    <div class="navbar-inner">
 +      <div class="brand">Juegos</div>
 +      <div class="nav-links">
-+        <a href="{% url 'home' %}">Inicio</a>
++        <a href="{% url 'core:home' %}">Inicio</a>
 +        <a href="{% url 'wordsearch:create' %}">Sopa de letras</a>
 +        <a href="{% url 'crossword:create' %}">Crucigrama</a>
 +        <a href="{% url 'sudoku:index' %}">Sudoku</a>

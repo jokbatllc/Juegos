@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-<<<<<<< ours
-{% block title %}Dibujos #{{ jg.id }}{% endblock %}
+  {% block title %}Dibujos #{{ jg.id }}{% endblock %}
 {% block breadcrumbs %}{% include "partials/_breadcrumbs.html" %}{% endblock %}
 {% block breadcrumb_items %}
   <li class="breadcrumb-item"><a href="{% url 'coloring:create' %}">Coloring</a></li>
@@ -14,8 +13,7 @@
 <div class="row row-cols-1 row-cols-md-2 g-4">
   {% for img in images %}
   <div class="col"><img src="{{ img }}" class="img-fluid border" alt="Dibujo {{ forloop.counter }}" /></div>
-=======
-{% block title %}Coloring · Juegos{% endblock %}
+   {% block title %}Coloring · Juegos{% endblock %}
 
 {% block header %}
   <div class="card-header">
@@ -33,7 +31,7 @@
   <div class="col-4">
     <img src="{{ MEDIA_URL }}{{ img.path }}" alt="dibujo" class="img-fluid">
   </div>
->>>>>>> theirs
+ 
   {% endfor %}
 </div>
 {% endblock %}

@@ -5,81 +5,26 @@ from django.db.models import Count
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-<<<<<<< ours
-from puzzles.models import JuegoGenerado
-from .utils import DETAIL_URLS
-from core.auth import in_group
-=======
 from core.auth import in_group
 from puzzles.models import JuegoGenerado
-
 from .utils import DETAIL_URLS
->>>>>>> theirs
 
 
 def home(request):
     cards = []
+
+    # Bloque de generadores
     if in_group(request.user, "generador"):
-<<<<<<< ours
-        cards.extend([
-            {
-                "name": "Sopa de Letras",
-                "url": reverse("wordsearch:create"),
-                "desc": "Genera sopas parametrizables",
-                "icon": "bi-grid",
-            },
-            {
-                "name": "Crucigramas",
-                "url": reverse("crossword:create"),
-                "desc": "Rejillas con pistas",
-                "icon": "bi-table",
-            },
-            {
-                "name": "Sudoku",
-                "url": reverse("sudoku:create"),
-                "desc": "N×N y dificultad",
-                "icon": "bi-123",
-            },
-            {
-                "name": "Colorear (Niños)",
-                "url": reverse("coloring:create") + "?tipo=kids",
-                "desc": "Figuras simples",
-                "icon": "bi-brush",
-            },
-            {
-                "name": "Colorear (Adultos)",
-                "url": reverse("coloring:create") + "?tipo=adults",
-                "desc": "Mandalas/detalle",
-                "icon": "bi-flower3",
-            },
-            {
-                "name": "Caligrafía",
-                "url": reverse("calligraphy:create"),
-                "desc": "Cuadernos PDF",
-                "icon": "bi-pen",
-            },
-            {
-                "name": "Mandala",
-                "url": reverse("mandala:create"),
-                "desc": "Simetría radial",
-                "icon": "bi-sun",
-            },
-        ])
-    if in_group(request.user, "editor_contenidos"):
-        cards.append(
-            {
-                "name": "Lexicon",
-=======
         cards.extend(
             [
                 {
-                    "name": "Sopa de letras",
+                    "name": "Sopa de Letras",
                     "url": reverse("wordsearch:create"),
                     "desc": "Genera sopas parametrizables",
                     "icon": "bi-grid",
                 },
                 {
-                    "name": "Crucigrama",
+                    "name": "Crucigramas",
                     "url": reverse("crossword:create"),
                     "desc": "Rejillas con pistas",
                     "icon": "bi-table",
@@ -91,13 +36,13 @@ def home(request):
                     "icon": "bi-123",
                 },
                 {
-                    "name": "Dibujos (Niños)",
+                    "name": "Colorear (Niños)",
                     "url": reverse("coloring:create") + "?tipo=kids",
                     "desc": "Figuras simples",
                     "icon": "bi-brush",
                 },
                 {
-                    "name": "Dibujos (Adultos)",
+                    "name": "Colorear (Adultos)",
                     "url": reverse("coloring:create") + "?tipo=adults",
                     "desc": "Mandalas/detalle",
                     "icon": "bi-flower3",
@@ -110,29 +55,25 @@ def home(request):
                 },
                 {
                     "name": "Mandala",
-                    "url": reverse("mandala:index"),
+                    "url": reverse("mandala:create"),
                     "desc": "Simetría radial",
                     "icon": "bi-sun",
                 },
-                {
-                    "name": "Laberintos",
-                    "url": reverse("maze:create"),
-                    "desc": "Rectangulares o circulares",
-                    "icon": "bi-diagram-3",
-                },
             ]
         )
+
+    # Bloque de gestión de contenidos (Lexicon)
     if in_group(request.user, "editor_contenidos"):
         cards.append(
             {
                 "name": "Léxico",
->>>>>>> theirs
                 "url": reverse("lexicon:index"),
                 "desc": "Palabras y categorías",
                 "icon": "bi-collection",
             }
         )
 
+    # Búsqueda / recientes / totales
     q = request.GET.get("q")
     juegos = JuegoGenerado.objects.all()
     if request.user.is_authenticated:

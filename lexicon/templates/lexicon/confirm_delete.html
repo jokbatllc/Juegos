@@ -1,15 +1,13 @@
 {% extends "lexicon/base_lexicon.html" %}
-<<<<<<< ours
-{% block content_lexicon %}
+  {% block content_lexicon %}
 <h2>¿Eliminar {{ obj }}?</h2>
-=======
-{% block title %}Eliminar {{ obj }} · Lexicon{% endblock %}
+   {% block title %}Eliminar {{ obj }} · Lexicon{% endblock %}
 {% block header %}
   <div class="card-header">
     <div class="card-title">¿Eliminar {{ obj }}?</div>
   </div>
 {% endblock %}
 {% block content_lexicon %}
->>>>>>> theirs
+ 
 <form method="post">{% csrf_token %}<button class="btn btn-danger">Confirmar</button></form>
 {% endblock %}
